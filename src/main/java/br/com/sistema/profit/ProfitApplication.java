@@ -1,4 +1,4 @@
-package br.com.dudiinhamendes.profit;
+package br.com.sistema.profit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

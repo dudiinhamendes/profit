@@ -1,0 +1,2 @@
+insert into usuario (username, nome, senha, role, ativo, datacriacao)
+values ('admin', 'Ana Paula','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_ADMIN', 'true', '2020-02-06 08:00:00');
