@@ -31,6 +31,8 @@ public class Usuario {
 	
 	private String nome;
 	
+	private String telefone;
+	
 	@CreationTimestamp
 	@Column(updatable = false) 
 	private LocalDateTime datacriacao;
@@ -57,6 +59,10 @@ public class Usuario {
     
     public String getSenha() {
     	return senha;
+    }
+    
+    public String getTelefone() {
+    	return telefone;
     }
     
     public void setSenha(String senha) {
@@ -94,5 +100,9 @@ public class Usuario {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+	
+	 public void setTelefone(String telefone) {
+	    	this.telefone = telefone;
+	    }
 	
 }
