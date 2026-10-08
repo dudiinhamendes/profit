@@ -1,0 +1,55 @@
+<div th:fragment="estilizacao-css">
+	<link 
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
+	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
+	crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/base.css}">
+</div>
+
+<!-- https://www.w3schools.com/bootstrap/bootstrap_navbar.asp -->
+<nav class="navbar navbar-expand-md navbar-default bg-primary-pf" th:fragment="cabecalho">
+	<div class="container-fluid">
+	    <a class="navbar-brand link-light" th:href="@{/}">Pro Fit</a>
+		<div class="collapse navbar-collapse justify-content-end">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link text-decoration-none link-light" th:href="@{/cliente/listar}" sec:authorize="hasAnyRole('ADMIN','ATENDENTE')">
+						Clientes
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-decoration-none link-light" th:href="@{/treino/listar}" sec:authorize="isAuthenticated()">
+						Treinos
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-decoration-none link-light" th:href="@{/usuario/listar}" sec:authorize="hasRole('ADMIN')">
+						Usuarios
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-decoration-none link-light" th:href="@{/h2-console}" sec:authorize="hasRole('ADMIN')">
+						H2 BD
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-decoration-none link-light" th:href="@{/login}" sec:authorize="!isAuthenticated()">
+						Login
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-decoration-none link-light" th:href="@{/logout}" sec:authorize="isAuthenticated()">
+						Logout
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<footer class="d-flex flex-column py-2 mt-4 bg-primary-pf mt-auto" th:fragment="rodape">
+    <p class="text-center text-white my-1">&copy; 2026 Mesquiters - Sistema ProFit</p>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
+	crossorigin="anonymous"></script>
+</footer>

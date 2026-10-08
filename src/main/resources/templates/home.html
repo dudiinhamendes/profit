@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Pro Fit</title>
+	<div th:replace="~{fragments/util :: estilizacao-css}"></div>
+</head>
+<body class="d-flex flex-column min-vh-100">
+	<header th:replace="~{fragments/util :: cabecalho}"></header>
+	
+	<main class="card border-0 w-75 w-lg-50 my-auto mx-auto text-center">
+		<h2>Bem vindo à Pro Fit</h2>
+		<br>
+		<p>A única academia Mundial</p>
+		<br>
+		<p>nossos treinamentos estão em cada esquina de todas as ruas</p>
+		<br>
+		<p>garantindo que você treine com a maior eficiência possivel</p>
+		<br>
+		<p>fazemos musculação, crossfit, zumba, artes marciais e natação</p>
+		<br>
+		<p>fazemos avaliação local e à distância</p>
+		<br>
+		<p>para agendamentos nos chame pelo numero +55 (51) 2729-7217</p>
+		<br>
+		<p>funcionamos até 19:00 desde as 6:00</p>
+	</main>
+	
+	<footer th:replace="~{fragments/util :: rodape}"></footer>
+</body>
+
+</html>
