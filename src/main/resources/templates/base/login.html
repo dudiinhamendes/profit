@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <title>Login</title>
+	<div th:replace="~{fragments/util :: estilizacao-css}"></div>
+</head>
+<body class="d-flex flex-column min-vh-100">
+	<header th:replace="~{fragments/util :: cabecalho}"></header>
+
+	<main class="card shadow w-50 w-lg-25 my-auto mx-auto">
+		<div class="card-body p-4">
+			<h3 class="card-title text-center mb-4">Acessar o Sistema</h3>
+			
+			<!-- Mensagem de Erro (se houver) -->
+			<div th:if="${mensagemErro}" class="alert alert-error" th:text="${mensagemErro}"></div>
+			<div th:if="${mensagemLogout}" class="alert alert-success" th:text="${mensagemLogout}"></div>
+			
+			<form th:action="@{/perform_login}" method="POST">
+			    <div class="form-group">
+			        <label for="username" class="form-label">Usuário</label>
+			        <input type="text" class="form-control" id="username" name="username" placeholder="Usuário" required autofocus />
+			    </div>
+				
+			    <div class="mb-3">
+			        <label for="password" class="form-label">Senha</label>
+			        <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required />
+			    </div>
+				
+			    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+			</form>
+		</div>
+	</main>
+	
+	<footer th:replace="~{fragments/util :: rodape}"></footer>
+</body>
+</html>
