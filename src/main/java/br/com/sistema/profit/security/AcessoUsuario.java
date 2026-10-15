@@ -15,7 +15,7 @@ public class AcessoUsuario implements UserDetails {
 	public AcessoUsuario(Usuario user) {
 		this.usuario = user;
 	}
-	  
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority(usuario.getRole()));
@@ -48,7 +48,7 @@ public class AcessoUsuario implements UserDetails {
 	
 	@Override 
 	public boolean isEnabled() {
-		return usuario.getAtivo();
+		return usuario.isAtivo();
 	}
 	
 }
