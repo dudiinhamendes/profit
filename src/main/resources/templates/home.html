@@ -3,9 +3,7 @@
       xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Pro Fit</title>
-	<div th:replace="~{fragments/util :: estilizacao-css}"></div>
+	<div th:replace="~{fragments/util :: head-content(title='Pro Fit')}"></div>
 </head>
 <body class="d-flex flex-column min-vh-100">
 	<header th:replace="~{fragments/util :: cabecalho}"></header>
