@@ -24,7 +24,7 @@ public class AlunoController {
 	String listarAluno(Model model) {
 		List<Aluno> listaAluno = alunoService.listar();
 		model.addAttribute("listaA",listaAluno);
-		model.addAttribute("aluno",new Aluno());
+		
 		return "paciente/listar";
 	}
 
