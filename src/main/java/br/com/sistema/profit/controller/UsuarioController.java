@@ -17,6 +17,10 @@ public class UsuarioController {
 	
 	UsuarioService usuarioService;
 	
+	public UsuarioController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService; 
+	}
+	
 	@GetMapping("/cadastro")
 	public String cadastrar(Model model) {
 		model.addAttribute("usuario", new Usuario());
