@@ -30,9 +30,13 @@ public class Usuario {
 	@Column(unique = true) 
 	private String username;
 	
-	private String senha; 
-	private String role;
+	private String senha;
+	
 	private String nome;
+	
+	private String role;
+	
+	private String telefone;
 	
 	@CreationTimestamp
 	@Column(updatable = false) 

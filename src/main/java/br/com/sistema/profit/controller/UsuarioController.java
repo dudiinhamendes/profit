@@ -32,4 +32,6 @@ public class UsuarioController {
 		model.addAttribute("listaU", listaUsuario);
 		return "usuario/listar";
 	}
+	
+	
 } 
