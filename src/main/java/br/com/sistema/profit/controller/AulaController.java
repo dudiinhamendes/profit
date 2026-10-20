@@ -24,7 +24,7 @@ public class AulaController {
 	@GetMapping("/listar")
 	String listarAula(Model model) {
 		List<Aula>listaAula=aulaService.listar();
-		model.addAttribute("lisataAula",listaAula);
+		model.addAttribute("listaAula", aulaService.listar());
 		
 		return "aula/listar";
 		
