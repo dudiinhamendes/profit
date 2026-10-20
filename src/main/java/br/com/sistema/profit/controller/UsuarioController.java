@@ -1,7 +1,5 @@
 package br.com.sistema.profit.controller; 
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +26,7 @@ public class UsuarioController {
 	
 	@GetMapping("/listar")
 	String listar(Model model) {
-		List<Usuario> listaUsuario = usuarioService.listar();
-		model.addAttribute("listaU", listaUsuario);
+		model.addAttribute("listaU", usuarioService.listar());
 		return "usuario/listar";
 	}
 	
