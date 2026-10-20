@@ -2,6 +2,7 @@ package br.com.sistema.profit.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +27,15 @@ public class AlunoController {
 		List<Aluno> listaAluno = alunoService.listar();
 		model.addAttribute("listaA",listaAluno);
 		
-		return "paciente/listar";
+		return "aluno/listar";
 	}
-  
+	
 	@GetMapping("/cadastro")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	String cadastrarAluno(Model model) {
 		model.addAttribute("aluno", new Aluno());
 		return "aluno/form";
-  }
+	}
+  	
 
 }

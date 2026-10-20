@@ -21,7 +21,7 @@ public class UsuarioController {
 	@GetMapping("/cadastro")
 	public String cadastrar(Model model) {
 		model.addAttribute("usuario", new Usuario());
-	    return "usuario/cadastro";
+	    return "usuario/form";
 	}
 	
 	@GetMapping("/listar")
