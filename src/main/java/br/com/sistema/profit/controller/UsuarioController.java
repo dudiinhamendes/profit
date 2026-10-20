@@ -14,10 +14,10 @@ import br.com.sistema.profit.service.UsuarioService;
 @RequestMapping("/usuario")
 public class UsuarioController {
 	
-	UsuarioService UsuarioService;
+	UsuarioService usuarioService;
 
-	public UsuarioController(UsuarioService UsuarioService) {
-		this.UsuarioService = UsuarioService;
+	public UsuarioController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 	}
 	
 	@GetMapping("/cadastro")
@@ -28,7 +28,7 @@ public class UsuarioController {
 	
 	@GetMapping("/listar")
 	String listar(Model model) {
-		List<Usuario> listaUsuario = UsuarioService.listar();
+		List<Usuario> listaUsuario = usuarioService.listar();
 		model.addAttribute("listaU", listaUsuario);
 		return "usuario/listar";
 	}
