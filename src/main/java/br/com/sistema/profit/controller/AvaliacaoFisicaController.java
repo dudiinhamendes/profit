@@ -24,8 +24,7 @@ public class AvaliacaoFisicaController {
 	
 	@GetMapping("/listar")
 	String listarAvaliacaoFisica(Model model) {
-		List<AvaliacaoFisica> listaAvaliacao=avaliacaoFisicaService.listar();
-		model.addAttribute("listaAvaliacao",listaAvaliacao);
+		model.addAttribute("listaAvaliacao", avaliacaoFisicaService.listar());
 		
 		return "avaliacao-fisica/listar";
 		
