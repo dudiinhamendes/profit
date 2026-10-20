@@ -13,8 +13,10 @@ public class AvaliacaoFisicaService {
 	
 	private AvaliacaoFisicaRepository avaliacaoFisicaRepository;
 	
-	
-	
+	public AvaliacaoFisicaService(AvaliacaoFisicaRepository avaliacaoFisicaRepository) {
+		this.avaliacaoFisicaRepository = avaliacaoFisicaRepository;
+	}
+
 	public List<AvaliacaoFisica> listar(){
 		
 		return avaliacaoFisicaRepository.findAll();
