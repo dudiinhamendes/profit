@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="~{fragments/util :: head-content(title='Pro Fit - Usuário')}"></div>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="~{fragments/util :: cabecalho}"></header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary-pf text-white">
+                        <h5 class="mb-0" th:if="${usuario.id}" th:text="${edit} ? 'Edição de usuário' : 'Usuário'">Bug</h5>
+                        <h5 class="mb-0" th:unless="${usuario.id}">Cadastro de usuário</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <form th:action="@{/usuario/salvar}" th:object="${usuario}" method="POST" th:if="${usuario.id == null OR edit}">
+
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="fullName" placeholder="Digite o nome" required th:field="*{nome}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" placeholder="Digite nome para login" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="senha" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="senha" placeholder="Digite senha" required th:field="*{senha}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="userRole" class="form-label">Nível de acesso</label>
+                                <select class="form-select" id="userRole" th:field="*{role}">
+                                    <option value="ROLE_ALUNO" selected>Escolha o nível de acesso...</option>
+                                    <option value="ROLE_ADMIN">Admin</option>
+                                    <option value="ROLE_ATENDENTE">Atendente</option>
+                                    <option value="ROLE_PROFESSOR">Professor</option>
+                                    <option value="ROLE_ALUNO">Aluno</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="esta-ativo" required th:field="*{ativo}">
+                                <label class="form-check-label" for="esta-ativo">Ativo</label>
+                            </div>
+
+                            <div class="d-flex gap-3">
+                                <a href="/" class="btn btn-secondary w-100">Cancelar</a>
+                                <button type="submit" class="btn btn-primary bg-primary-pf w-100">Salvar</button>
+                            </div>
+                        </form>
+
+                        <div class="card-body" th:unless="${usuario.id == null OR edit}">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Nome</label>
+                                <div class="form-control-plaintext fw-bold" th:text="${usuario.nome}">Lorem Ipsum</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Username</label>
+                                <div class="form-control-plaintext fw-bold" th:text="${usuario.username}">Lorem Ipsum</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Data de criação</label>
+                                <div class="form-control-plaintext fw-bold" th:text="${usuario.dataCriacao}">Lorem Ipsum</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Nível de acesso</label>
+                                <div class="form-control-plaintext fw-bold" th:text="${usuario.role}">Lorem Ipsum</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Status</label>
+                                <div>
+                                    <span class="badge bg-success" th:if="${usuario.ativo}">Ativo</span>
+                                    <span class="badge bg-warning" th:unless="${usuario.ativo}">Inativo</span>
+                                </div>
+                            </div>
+                            <a th:href="@{/usuario/editar(id=${usuario.id})}" class="btn btn-primary bg-primary-pf w-100" sec:authorize="hasAnyRole('ADMIN','ATENDENTE')">Editar usuário</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/util :: rodape}"></footer>
+</body>
+
+</html>
