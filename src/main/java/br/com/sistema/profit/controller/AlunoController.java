@@ -22,10 +22,10 @@ public class AlunoController {
 	
 	@GetMapping("/listar")
 	String listarAluno(Model model) {
-		List<Aluno> listaAluno = alunoService.listar();
-		model.addAttribute("listaA",listaAluno);
 		
-		return "paciente/listar";
+		model.addAttribute("listaAluno",alunoService.listar());
+		
+		return "aluno/listar";
 	}
 
 }
