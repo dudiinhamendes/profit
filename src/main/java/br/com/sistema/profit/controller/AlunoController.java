@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.sistema.profit.model.Aluno;
+
 import br.com.sistema.profit.service.AlunoService;
 
 @Controller
@@ -27,5 +28,11 @@ public class AlunoController {
 		
 		return "paciente/listar";
 	}
+  
+	@GetMapping("/cadastro")
+	String cadastrarAluno(Model model) {
+		model.addAttribute("aluno", new Aluno());
+		return "aluno/form";
+  }
 
 }
