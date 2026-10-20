@@ -25,11 +25,11 @@ public class AvaliacaoFisica {
 	
 	@ManyToOne
 	@JoinColumn(name = "aluno_id", nullable = false)
-	private Long id_aluno;
+	private Aluno aluno;
 	
 	@ManyToOne
 	@JoinColumn(name = "professor_id", nullable = false)
-	private Long id_professor;
+	private Professor professor;
 	
 	private Long peso;
 	
@@ -38,14 +38,16 @@ public class AvaliacaoFisica {
 	private Double altura;
 
 	public AvaliacaoFisica() {}
-	
-	public AvaliacaoFisica(Long id, Long id_aluno, Long id_professor, Long peso, Double percentualGordura,
+
+	public AvaliacaoFisica(Long id, Aluno aluno, Professor professor, Long peso, Double percentualGordura,
 			Double altura) {
+		super();
 		this.id = id;
-		this.id_aluno = id_aluno;
-		this.id_professor = id_professor;
+		this.aluno = aluno;
+		this.professor = professor;
 		this.peso = peso;
 		this.percentualGordura = percentualGordura;
 		this.altura = altura;
 	}
+	
 }
