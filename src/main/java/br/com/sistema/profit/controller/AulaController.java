@@ -10,20 +10,18 @@ import br.com.sistema.profit.service.AulaService;
 @Controller
 @RequestMapping("/aula")
 public class AulaController {
-	
+
 	AulaService aulaService;
-	
+
 	public AulaController(AulaService aulaService) {
-		
 		this.aulaService=aulaService;
 	}
-	
+
 	@GetMapping("/listar")
 	String listarAula(Model model) {
 		model.addAttribute("listaAula",aulaService.listar());
-		
+
 		return "aula/listar";
-		
 	}
 
 }
