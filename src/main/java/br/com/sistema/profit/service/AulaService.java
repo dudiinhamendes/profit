@@ -12,6 +12,10 @@ public class AulaService {
 	
 	private AulaRepository aulaRepository;
 	
+	public AulaService(AulaRepository aulaRepository) {
+		this.aulaRepository = aulaRepository;
+	}
+
 	public List<Aula> listar(){
 		
 		return aulaRepository.findAll();

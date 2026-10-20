@@ -1,13 +1,10 @@
 package br.com.sistema.profit.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.sistema.profit.model.Aula;
 import br.com.sistema.profit.service.AulaService;
 
 @Controller
@@ -23,8 +20,7 @@ public class AulaController {
 	
 	@GetMapping("/listar")
 	String listarAula(Model model) {
-		List<Aula>listaAula=aulaService.listar();
-		model.addAttribute("lisataAula",listaAula);
+		model.addAttribute("listaAula",aulaService.listar());
 		
 		return "aula/listar";
 		
