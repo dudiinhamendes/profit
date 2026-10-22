@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Usuario;
 import br.com.sistema.profit.service.UsuarioService;
@@ -21,7 +22,7 @@ public class UsuarioController {
 	@GetMapping("/cadastro")
 	public String cadastrar(Model model) {
 		model.addAttribute("usuario", new Usuario());
-	    return "usuario/cadastro";
+	    return "usuario/form";
 	}
 	
 	@GetMapping("/listar")
@@ -30,5 +31,15 @@ public class UsuarioController {
 		return "usuario/listar";
 	}
 	
-	
-} 
+	@GetMapping("/editar")
+	public String editar(@RequestParam Long id, Model model) {
+		Usuario usuario = usuarioService.buscarPorId(id);
+		if(usuario != null) {
+			model.addAttribute("edit", true);
+			model.addAttribute("usuario", usuario);
+			return "usuario/cadastro";
+		}else {
+		return "usuario/listar";
+		}
+		}
+	}
