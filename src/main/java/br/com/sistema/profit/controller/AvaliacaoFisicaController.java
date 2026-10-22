@@ -29,12 +29,17 @@ public class AvaliacaoFisicaController {
 		return "avaliacao-fisica/listar";
 	}
 	
-	@GetMapping("/editar")
+	@GetMapping("/editar") 
 	@PreAuthorize("hasAnyRole('PROFESSOR', 'ADMIN')")
-	public String editarAvaliacaoFisica(@RequestParam("id") Long id, Model model) {
+	public String editarAvaliacaoFisica(@RequestParam Long id, Model model) {
 		AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
-		model.addAttribute("avaliacaoFisica", avaliacaoFisica);
-		return "avaliacao-fisica/editar"; 
+		if (avaliacaoFisica != null) {
+			model.addAttribute("edit", true);
+			model.addAttribute("avaliacaoFisica", avaliacaoFisica);
+			return "avaliacaoFisica/form";
+		} else {
+			return "redirect:/avaliacaoFisica/listar?error=notFound";
+		}
 	}
 	
 }
