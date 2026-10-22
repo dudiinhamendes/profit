@@ -13,7 +13,7 @@ import br.com.sistema.profit.service.UsuarioService;
 
 @Controller
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class UsuarioController implements CrudController<Usuario> {
 
 	UsuarioService usuarioService;
 
@@ -54,13 +54,13 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/listar")
-	String listar(Model model) {
+	public String listar(Model model) {
 		model.addAttribute("listaUsuario", usuarioService.listar());
 		return "usuario/listar";
 	}
 
 	@PostMapping("/salvar")
-	String salvar(@ModelAttribute Usuario usuario) {
+	public String salvar(@ModelAttribute Usuario usuario) {
 		usuarioService.salvar(usuario);
 		return "redirect:/usuario/listar";
 	}
