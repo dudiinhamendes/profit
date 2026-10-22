@@ -37,7 +37,7 @@ public class Usuario {
 	
 	@CreationTimestamp
 	@Column(updatable = false) 
-	private LocalDateTime datacriacao;
+	private LocalDateTime dataCriacao;
 	
 	@Column (nullable = false) 
 	private boolean ativo = true;
