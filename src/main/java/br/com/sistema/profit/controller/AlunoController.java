@@ -39,7 +39,7 @@ public class AlunoController {
 		if(aluno != null) {
 			model.addAttribute("edit", true);
 			model.addAttribute("aluno", aluno);
-			return "aluno/cadastrar";
+			return "aluno/form";
 		}else {
 		return "aluno/listar";
 		}
