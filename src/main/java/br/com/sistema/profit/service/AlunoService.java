@@ -19,4 +19,9 @@ public class AlunoService {
 	public List<Aluno> listar() {
 		return alunoRepository.findAll();
 	}
+
+	public Aluno buscarPorId(Long id) {
+		return alunoRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado: " + id));
+	}
 }

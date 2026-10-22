@@ -1,15 +1,13 @@
 package br.com.sistema.profit.controller;
 
-import java.util.List;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Aluno;
-
 import br.com.sistema.profit.service.AlunoService;
 
 @Controller
@@ -33,6 +31,18 @@ public class AlunoController {
 	String cadastrarAluno(Model model) {
 		model.addAttribute("aluno", new Aluno());
 		return "aluno/form";
+	}
+	
+	@GetMapping("/editar")
+	public String editar(@RequestParam Long id, Model model) {
+		Aluno aluno = alunoService.buscarPorId(id);
+		if(aluno != null) {
+			model.addAttribute("edit", true);
+			model.addAttribute("aluno", aluno);
+			return "aluno/cadastrar";
+		}else {
+		return "aluno/listar";
+		}
 	}
   	
 

@@ -60,7 +60,7 @@ public class UsuarioController {
 		return "usuario/listar";
 		}
 	}
-}
+
 
 	@PostMapping("/salvar")
 	String salvar(@ModelAttribute Usuario usuario) {
