@@ -22,6 +22,6 @@ public class AlunoService {
 
 	public Aluno buscarPorId(Long id) {
 		return alunoRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado: " + id));
+				.orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado: " + id));
 	}
 }
