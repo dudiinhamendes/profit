@@ -10,16 +10,16 @@ values ('admin', 'Ana Paula','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33r
 ('rmartins', 'Ricardo Martins','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_USER', 'true', '2023-11-24 08:00:00');
 
 insert into aluno (id, sexo)
-(4, 'f'),
+values (4, 'f'),
 (5, 'f'),
 (6, 'f');
 
 insert into professor (id, cpf, data_demissao)
-(7, '598.038.673-99', '2026-06-07'),
+values (7, '598.038.673-99', '2026-06-07'),
 (8, '938.923.397-90', '2026-05-31'),
 (9, '028.984.683-00', '2026-10-09');
 
 insert into avaliacao_fisica (aluno, professor, peso, percentual_gordura, altura)
-(4, 7, '70.80', '15.20', '1.72'),
+values (4, 7, '70.80', '15.20', '1.72'),
 (6, 7, '65.60', '17.25', '1.66'),
-(5, 9, '62.10', '12.60', '1.60'),
+(5, 9, '62.10', '12.60', '1.60');
