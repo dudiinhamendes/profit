@@ -27,7 +27,7 @@ public class UsuarioController {
 	
 	@GetMapping("/listar")
 	String listar(Model model) {
-		model.addAttribute("listaU", usuarioService.listar());
+		model.addAttribute("listaUsuario", usuarioService.listar());
 		return "usuario/listar";
 	}
 	
@@ -41,5 +41,5 @@ public class UsuarioController {
 		}else {
 		return "usuario/listar";
 		}
-		}
 	}
+}
