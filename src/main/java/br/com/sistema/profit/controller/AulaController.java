@@ -10,7 +10,7 @@ import br.com.sistema.profit.service.AulaService;
 
 @Controller
 @RequestMapping("/aula")
-public class AulaController {
+public class AulaController implements CrudController<Aula> {
 
 	AulaService aulaService;
 
@@ -19,15 +19,33 @@ public class AulaController {
 	}
 
 	@GetMapping("/listar")
-	String listarAula(Model model) {
-		model.addAttribute("listaAula",aulaService.listar());
+	public String listar(Model model) {
+		model.addAttribute("listaAula", aulaService.listar());
 		return "aula/listar";
 	}
 	
 	@GetMapping("/cadastrar")
-	String cadastrarAula(Model model) {
-		model.addAttribute("aula",new Aula());
+	public String cadastrar(Model model) {
+		model.addAttribute("aula", new Aula());
 		return "aula/form";
+	}
+
+	@Override
+	public String visualizar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String editar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String salvar(Aula t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

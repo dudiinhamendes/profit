@@ -13,16 +13,16 @@ import br.com.sistema.profit.service.ProfessorService;
 
 @Controller
 @RequestMapping("/professor")
-public class ProfessorController {
+public class ProfessorController implements CrudController<Professor> {
 	
 	ProfessorService professorService;
 	
 	public ProfessorController(ProfessorService professorService) {
-		this.professorService=professorService;
+		this.professorService = professorService;
 	}
 	
 	@GetMapping("/listar")
-	String listarProfessor(Model model) {
+	public String listar(Model model) {
 		List<Professor>listaProfessor=professorService.listar();
 		model.addAttribute("listaProfessor",listaProfessor);
 		return "professor/listar";
@@ -30,9 +30,27 @@ public class ProfessorController {
 
 	@GetMapping("/cadastrar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
-	String cadastrarProfessor(Model model) {
+	public String cadastrar(Model model) {
 		 model.addAttribute("professor",new Professor());
 		 return "professor/form";
+	}
+
+	@Override
+	public String visualizar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String editar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String salvar(Professor t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

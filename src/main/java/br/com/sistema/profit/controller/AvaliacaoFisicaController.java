@@ -12,12 +12,12 @@ import br.com.sistema.profit.service.AvaliacaoFisicaService;
 
 @Controller
 @RequestMapping("/avaliacao-fisica")
-public class AvaliacaoFisicaController {
- 
+public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica> {
+
 	AvaliacaoFisicaService avaliacaoFisicaService;
-	
+
 	public AvaliacaoFisicaController(AvaliacaoFisicaService avaliacaoFisicaService) {
-		this.avaliacaoFisicaService =avaliacaoFisicaService;
+		this.avaliacaoFisicaService = avaliacaoFisicaService;
 	}
 	
 	@GetMapping("/cadastrar")
@@ -27,14 +27,14 @@ public class AvaliacaoFisicaController {
 	}
 	
 	@GetMapping("/listar")
-	String listarAvaliacaoFisica(Model model) {
+	public String listar(Model model) {
 		model.addAttribute("listaAvaliacao", avaliacaoFisicaService.listar());
 		return "avaliacao-fisica/listar";
 	}
 	
 	@GetMapping("/editar") 
 	@PreAuthorize("hasAnyRole('PROFESSOR', 'ADMIN')")
-	public String editarAvaliacaoFisica(@RequestParam Long id, Model model) {
+	public String editar(@RequestParam Long id, Model model) {
 		AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
 		if (avaliacaoFisica != null) {
 			model.addAttribute("edit", true);
@@ -43,5 +43,17 @@ public class AvaliacaoFisicaController {
 		} else {
 			return "redirect:/avaliacao-fisica/listar?error=notFound";
 		}
+	}
+
+	@Override
+	public String visualizar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String salvar(AvaliacaoFisica t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
