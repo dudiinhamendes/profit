@@ -1,8 +1,5 @@
 package br.com.sistema.profit.controller; 
 
-import java.time.LocalDateTime;
-import java.util.logging.Logger;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +21,7 @@ public class UsuarioController {
 		this.usuarioService = usuarioService; 
 	}
 	
-	@GetMapping("/cadastro")
+	@GetMapping("/cadastrar")
 	public String cadastrar(Model model) {
 		model.addAttribute("usuario", new Usuario());
 	    return "usuario/form";
