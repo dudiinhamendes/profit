@@ -19,7 +19,7 @@ public class UsuarioController {
 
 	public UsuarioController(UsuarioService usuarioService) {
 		this.usuarioService = usuarioService; 
-	}
+	}	
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Model model) {
