@@ -23,7 +23,7 @@ public class Plano {
 	
 	private String nome;
 	
-	private Double preço;
+	private Double preco;
 	
 	private int duracao;
 	
