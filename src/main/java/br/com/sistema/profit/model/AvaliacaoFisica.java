@@ -29,7 +29,7 @@ public class AvaliacaoFisica {
 	@JoinColumn(name = "professor_id", nullable = false)
 	private Professor professor;
 	
-	private Long peso;
+	private Double peso;
 	
 	private Double percentualGordura;
 	
