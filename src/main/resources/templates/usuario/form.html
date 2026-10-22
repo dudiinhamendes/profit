@@ -13,13 +13,14 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary-pf text-white">
-                        <h5 class="mb-0" th:if="${usuario.id}" th:text="${edit} ? 'Edição de usuário' : 'Usuário'">Bug</h5>
+                        <h5 class="mb-0" th:if="${usuario.id}" th:text="${edit} ? 'Edição de usuário' : ${usuario.nome}">Bug</h5>
                         <h5 class="mb-0" th:unless="${usuario.id}">Cadastro de usuário</h5>
                     </div>
                     <div class="card-body">
 
                         <form th:action="@{/usuario/salvar}" th:object="${usuario}" method="POST" th:if="${usuario.id == null OR edit}">
-
+							<input type="hidden" th:field="*{id}">
+							
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="fullName" placeholder="Digite o nome" required th:field="*{nome}">
@@ -58,11 +59,6 @@
                         </form>
 
                         <div class="card-body" th:unless="${usuario.id == null OR edit}">
-                            <div class="mb-3">
-                                <label class="form-label text-muted">Nome</label>
-                                <div class="form-control-plaintext fw-bold" th:text="${usuario.nome}">Lorem Ipsum</div>
-                            </div>
-
                             <div class="mb-3">
                                 <label class="form-label text-muted">Username</label>
                                 <div class="form-control-plaintext fw-bold" th:text="${usuario.username}">Lorem Ipsum</div>
