@@ -9,12 +9,14 @@ import br.com.sistema.profit.repository.AlunoRepository;
 
 @Service
 public class AlunoService {
-	
-	
- private AlunoRepository  alunoRepository;
- 
- 
- public List<Aluno> listar() {
+
+	private AlunoRepository  alunoRepository;
+
+	public AlunoService(AlunoRepository alunoRepository) {
+		this.alunoRepository = alunoRepository;
+	}
+
+	public List<Aluno> listar() {
 		return alunoRepository.findAll();
 	}
 }

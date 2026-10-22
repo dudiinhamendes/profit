@@ -10,8 +10,12 @@ import br.com.sistema.profit.repository.ProfessorRepository;
 @Service
 public class ProfessorService {
 	
-	private ProfessorRepository professorRepository;
+	private ProfessorRepository professorRepository;	
 	
+	public ProfessorService(ProfessorRepository professorRepository) {
+		this.professorRepository = professorRepository;
+	}
+
 	public List<Professor>listar(){
 		return professorRepository.findAll();
 	}
