@@ -36,12 +36,12 @@ public class AlunoController {
 	@GetMapping("/editar")
 	public String editar(@RequestParam Long id, Model model) {
 		Aluno aluno = alunoService.buscarPorId(id);
-		if(aluno != null) {
+		if (aluno != null) {
 			model.addAttribute("edit", true);
 			model.addAttribute("aluno", aluno);
 			return "aluno/form";
-		}else {
-		return "aluno/listar";
+		} else {
+			return "redirect:/aluno/listar?error=notFound";
 		}
 	} 
 }
