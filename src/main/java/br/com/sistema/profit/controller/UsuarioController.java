@@ -19,7 +19,7 @@ public class UsuarioController {
 		this.usuarioService = usuarioService;
 	}
 	
-	@GetMapping("/cadastro")
+	@GetMapping("/cadastrar")
 	public String cadastrar(Model model) {
 		model.addAttribute("usuario", new Usuario());
 	    return "usuario/form";
@@ -37,7 +37,7 @@ public class UsuarioController {
 		if(usuario != null) {
 			model.addAttribute("edit", true);
 			model.addAttribute("usuario", usuario);
-			return "usuario/cadastro";
+			return "usuario/cadastrar";
 		}else {
 		return "usuario/listar";
 		}

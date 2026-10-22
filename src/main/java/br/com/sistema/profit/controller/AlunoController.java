@@ -29,7 +29,7 @@ public class AlunoController {
 		return "paciente/listar";
 	}
   
-	@GetMapping("/cadastro")
+	@GetMapping("/cadastrar")
 	String cadastrarAluno(Model model) {
 		model.addAttribute("aluno", new Aluno());
 		return "aluno/form";
