@@ -1,9 +1,11 @@
 package br.com.sistema.profit.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.AvaliacaoFisica;
 import br.com.sistema.profit.service.AvaliacaoFisicaService;
@@ -28,5 +30,18 @@ public class AvaliacaoFisicaController {
 	String listarAvaliacaoFisica(Model model) {
 		model.addAttribute("listaAvaliacao", avaliacaoFisicaService.listar());
 		return "avaliacao-fisica/listar";
+	}
+	
+	@GetMapping("/editar") 
+	@PreAuthorize("hasAnyRole('PROFESSOR', 'ADMIN')")
+	public String editarAvaliacaoFisica(@RequestParam Long id, Model model) {
+		AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
+		if (avaliacaoFisica != null) {
+			model.addAttribute("edit", true);
+			model.addAttribute("avaliacaoFisica", avaliacaoFisica);
+			return "avaliacao-fisica/form";
+		} else {
+			return "redirect:/avaliacao-fisica/listar?error=notFound";
+		}
 	}
 }
