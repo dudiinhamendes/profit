@@ -21,5 +21,10 @@ public class AvaliacaoFisicaService {
 		
 		return avaliacaoFisicaRepository.findAll();
 	}
+	
+	public AvaliacaoFisica buscarPorId(Long id) {
+		return avaliacaoFisicaRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Avaliação Física não encontrado: " + id));
+	}
 
-}
+} 
