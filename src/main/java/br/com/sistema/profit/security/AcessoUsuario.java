@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import br.com.sistema.profit.model.Usuario;
 
 public class AcessoUsuario implements UserDetails {
+	private static final long serialVersionUID = 1L;
 	private final Usuario usuario;
 	
 	public AcessoUsuario(Usuario user) {

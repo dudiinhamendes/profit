@@ -9,12 +9,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "aula")
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,13 +24,16 @@ public class Aula {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column (unique = true)
 	private String nome;
 	 
 	private LocalDateTime horario;
 	
-	private Long idProfessor; 
+	@ManyToOne
+	@JoinColumn(name = "professor_id", nullable = false)
+	private Professor professor; 
 	
-	private Long idAluno; 
+	@ManyToOne
+	@JoinColumn(name = "aluno_id", nullable = false)
+	private Aluno aluno; 
 }
 
