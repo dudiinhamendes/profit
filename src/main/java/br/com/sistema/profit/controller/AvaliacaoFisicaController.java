@@ -36,10 +36,9 @@ public class AvaliacaoFisicaController {
 		if (avaliacaoFisica != null) {
 			model.addAttribute("edit", true);
 			model.addAttribute("avaliacaoFisica", avaliacaoFisica);
-			return "avaliacaoFisica/form";
+			return "avaliacao-fisica/form";
 		} else {
-			return "redirect:/avaliacaoFisica/listar?error=notFound";
+			return "redirect:/avaliacao-fisica/listar?error=notFound";
 		}
 	}
-	
 }
