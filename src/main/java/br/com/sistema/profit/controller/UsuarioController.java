@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,9 +19,9 @@ import br.com.sistema.profit.service.UsuarioService;
 public class UsuarioController {
 	
 	UsuarioService usuarioService;
-
+	
 	public UsuarioController(UsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
+		this.usuarioService = usuarioService; 
 	}
 	
 	@GetMapping("/cadastro")
@@ -47,5 +49,11 @@ public class UsuarioController {
 		return "usuario/listar";
 	}
 	
+	
+	@PostMapping("/salvar")
+	String salvar(@ModelAttribute Usuario usuario) {
+		usuarioService.salvar(usuario);
+		return "redirect:/usuario/listar";
+	}
 	
 } 
