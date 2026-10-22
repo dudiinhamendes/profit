@@ -12,23 +12,23 @@ import br.com.sistema.profit.service.AlunoService;
 
 @Controller
 @RequestMapping("/aluno")
-public class AlunoController {
+public class AlunoController implements CrudController<Aluno> {
 
 	AlunoService alunoService;
 
 	public AlunoController(AlunoService alunoService) {
-		this.alunoService=alunoService;
+		this.alunoService = alunoService;
 	}
 
 	@GetMapping("/listar")
-	String listarAluno(Model model) {
+	public String listar(Model model) {
 		model.addAttribute("listaAluno",alunoService.listar());
 		return "aluno/listar";
 	}
 
 	@GetMapping("/cadastrar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
-	String cadastrarAluno(Model model) {
+	public String cadastrar(Model model) {
 		model.addAttribute("aluno", new Aluno());
 		return "aluno/form";
 	}
@@ -43,5 +43,17 @@ public class AlunoController {
 		} else {
 			return "redirect:/aluno/listar?error=notFound";
 		}
+	}
+
+	@Override
+	public String visualizar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String salvar(Aluno t) {
+		// TODO Auto-generated method stub
+		return null;
 	} 
 }
