@@ -25,17 +25,18 @@
                                 <label for="fullName" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="fullName" placeholder="Digite o nome" required th:field="*{nome}">
                             </div>
-
+								<div class="mb-3">
+								    <label for="phone" class="form-label">Telefone</label>
+								    <input type="text" class="form-control" id="phone" placeholder="Digite telefone" required th:field="*{telefone}">
+								</div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Digite nome para login" required>
+                                <input type="text" class="form-control" id="username" placeholder="Digite nome para login" required th:field="*{username}">
                             </div>
-
                             <div class="mb-3">
                                 <label for="senha" class="form-label">Senha</label>
                                 <input type="password" class="form-control" id="senha" placeholder="Digite senha" required th:field="*{senha}">
                             </div>
-
                             <div class="mb-3">
                                 <label for="userRole" class="form-label">Nível de acesso</label>
                                 <select class="form-select" id="userRole" th:field="*{role}">
@@ -46,7 +47,6 @@
                                     <option value="ROLE_ALUNO">Aluno</option>
                                 </select>
                             </div>
-
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="esta-ativo" required th:field="*{ativo}">
                                 <label class="form-check-label" for="esta-ativo">Ativo</label>
@@ -59,21 +59,22 @@
                         </form>
 
                         <div class="card-body" th:unless="${usuario.id == null OR edit}">
+							<div class="mb-3">
+							    <label class="form-label text-muted">Telefone</label>
+							    <div class="form-control-plaintext fw-bold" th:text="${usuario.telefone}">Lorem Ipsum</div>
+							</div>
                             <div class="mb-3">
                                 <label class="form-label text-muted">Username</label>
                                 <div class="form-control-plaintext fw-bold" th:text="${usuario.username}">Lorem Ipsum</div>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label text-muted">Data de criação</label>
                                 <div class="form-control-plaintext fw-bold" th:text="${usuario.dataCriacao}">Lorem Ipsum</div>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label text-muted">Nível de acesso</label>
                                 <div class="form-control-plaintext fw-bold" th:text="${usuario.role}">Lorem Ipsum</div>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label text-muted">Status</label>
                                 <div>

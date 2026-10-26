@@ -19,7 +19,7 @@ values (7, '598.038.673-99', '2026-06-07'),
 (8, '938.923.397-90', '2026-05-31'),
 (9, '028.984.683-00', '2026-10-09');
 
-insert into avaliacao_fisica (aluno, professor, peso, percentual_gordura, altura)
+insert into avaliacao_fisica (aluno_id, professor_id, peso, percentual_gordura, altura)
 values (4, 7, '70.80', '15.20', '1.72'),
 (6, 7, '65.60', '17.25', '1.66'),
 (5, 9, '62.10', '12.60', '1.60');
