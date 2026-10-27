@@ -63,5 +63,10 @@ public class AulaController implements CrudController<Aula> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	@GetMapping("/deletar")
+	public String deletar(@RequestParam Long id) {
+	aulaService.deletar(id);
+	return "redirect:/aula/listar?success=deleted";
+	}
 }

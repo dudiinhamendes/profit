@@ -20,11 +20,13 @@ public class AulaService {
 		
 		return aulaRepository.findAll();
 	}
+	
+	public void deletar(Long id) {
+	  aulaRepository.deleteById(id);
+	}
 
 	public Aula buscarPorId(Long id) {
 		return aulaRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado: " + id));
 	}
-	
-	
 }
