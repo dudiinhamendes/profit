@@ -38,7 +38,7 @@ public class AulaController implements CrudController<Aula> {
 
 	@Override
 	@GetMapping("/editar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN', 'PROFESSOR')")
 	public String editar(@RequestParam Long id, Model model) {
 		Aula aula = aulaService.buscarPorId(id);
 		if (aula != null) {
