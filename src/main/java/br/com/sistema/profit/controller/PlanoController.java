@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Plano;
 import br.com.sistema.profit.service.PlanoService;
@@ -59,4 +60,15 @@ public class PlanoController implements CrudController<Plano> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	@PostMapping("/deletar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	public String deletar(@RequestParam Long id) {
+		planoService.deletar(id);
+		return "redirect:/plano/listar";
+		
+	}
+	
+	
 }
