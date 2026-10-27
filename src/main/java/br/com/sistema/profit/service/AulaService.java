@@ -20,5 +20,9 @@ public class AulaService {
 		
 		return aulaRepository.findAll();
 	}
-
+	
+	public void deletar(Long id) {
+	
+	aulaRepository.deleteById(id);
+	}
 }

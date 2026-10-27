@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Aula;
 import br.com.sistema.profit.service.AulaService;
@@ -56,5 +57,10 @@ public class AulaController implements CrudController<Aula> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	@GetMapping("/deletar")
+	public String deletar(@RequestParam Long id) {
+	aulaService.deletar(id);
+	return "redirect:/aula/listar?success=deleted";
+	}
 }
