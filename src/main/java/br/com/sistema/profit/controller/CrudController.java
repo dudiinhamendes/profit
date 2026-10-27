@@ -12,7 +12,7 @@ public interface CrudController<T> {
 
 	public String editar(@RequestParam Long id, Model model);
 
-	String listar(Model model);
+	public String listar(Model model);
 
-	String salvar(@ModelAttribute T t);
+	public String salvar(@ModelAttribute T t);
 }

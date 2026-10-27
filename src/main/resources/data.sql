@@ -1,13 +1,13 @@
 insert into usuario (username, nome, senha, role, ativo, data_criacao)
 values ('admin', 'Ana Paula','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_ADMIN', 'true', '2020-02-06 08:00:00'),
-('user', 'Clara Maria','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_USER', 'true', '2021-05-31 08:00:00'),
-('vitor', 'Vitor Silva','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_ADMIN', 'true', '2018-10-27 08:00:00'),
-('marial', 'Maria Lopes','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_USER', 'true', '2025-11-15 08:00:00'),
-('esantos', 'Eduarda Santos','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_USER', 'true', '2023-09-23 08:00:00'),
-('gperez', 'Gabirela Perez','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_USER', 'true', '2023-06-24 08:00:00'),
-('sdias', 'Sara Dias','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_USER', 'true', '2023-01-20 08:00:00'),
-('pilha', 'Pietra Ilha','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_USER', 'true', '2023-11-16 08:00:00'),
-('rmartins', 'Ricardo Martins','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_USER', 'true', '2023-11-24 08:00:00');
+('user', 'Clara Maria','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_ATENDENTE', 'true', '2021-05-31 08:00:00'),
+('vitor', 'Vitor Silva','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_ATENDENTE', 'true', '2018-10-27 08:00:00'),
+('marial', 'Maria Lopes','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_ALUNO', 'true', '2025-11-15 08:00:00'),
+('esantos', 'Eduarda Santos','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_ALUNO', 'true', '2023-09-23 08:00:00'),
+('gperez', 'Gabirela Perez','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_ALUNO', 'true', '2023-06-24 08:00:00'),
+('sdias', 'Sara Dias','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_PROFESSOR', 'true', '2023-01-20 08:00:00'),
+('pilha', 'Pietra Ilha','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_PROFESSOR', 'true', '2023-11-16 08:00:00'),
+('rmartins', 'Ricardo Martins','$2a$10$ch/P1YLVS.qsHVNT1Jasd.3fdGGlivKbZ7kRSOYG33rgx2dLwi6KC', 'ROLE_PROFESSOR', 'true', '2023-11-24 08:00:00');
 
 insert into aluno (id, sexo)
 values (4, 'f'),

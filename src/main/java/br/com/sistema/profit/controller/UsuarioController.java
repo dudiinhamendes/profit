@@ -1,5 +1,6 @@
 package br.com.sistema.profit.controller; 
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import br.com.sistema.profit.service.UsuarioService;
 
 @Controller
 @RequestMapping("/usuario")
+@PreAuthorize("hasAnyRole('ADMIN')")
 public class UsuarioController implements CrudController<Usuario> {
 
 	UsuarioService usuarioService;
@@ -21,12 +23,14 @@ public class UsuarioController implements CrudController<Usuario> {
 		this.usuarioService = usuarioService; 
 	}	
 
+	@Override
 	@GetMapping("/cadastrar")
 	public String cadastrar(Model model) {
 		model.addAttribute("usuario", new Usuario());
 	    return "usuario/form";
 	}
 
+	@Override
 	@GetMapping("/visualizar")
 	public String visualizar(@RequestParam Long id, Model model) {
 		Usuario usuario = usuarioService.buscarPorId(id);
@@ -40,6 +44,7 @@ public class UsuarioController implements CrudController<Usuario> {
 		}
 	}
 
+	@Override
 	@GetMapping("/editar")
 	public String editar(@RequestParam Long id, Model model) {
 		Usuario usuario = usuarioService.buscarPorId(id);
@@ -53,12 +58,14 @@ public class UsuarioController implements CrudController<Usuario> {
 		}
 	}
 
+	@Override
 	@GetMapping("/listar")
 	public String listar(Model model) {
 		model.addAttribute("listaUsuario", usuarioService.listar());
 		return "usuario/listar";
 	}
 
+	@Override
 	@PostMapping("/salvar")
 	public String salvar(@ModelAttribute Usuario usuario) {
 		usuarioService.salvar(usuario);
