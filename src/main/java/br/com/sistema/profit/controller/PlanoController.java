@@ -12,18 +12,10 @@ import br.com.sistema.profit.service.PlanoService;
 @RequestMapping("/plano")
 public class PlanoController implements CrudController<Plano> {
 
-	
 	PlanoService planoService;
 	
 	public PlanoController(PlanoService planoService) {
 		this.planoService = planoService;
-	}
-	
-	@GetMapping("/listar")
-	public String listar(Model model) {
-		model.addAttribute("listarPlano", planoService.listar());
-		return "plano/listar";
-		
 	}
 
 	@Override
@@ -42,6 +34,13 @@ public class PlanoController implements CrudController<Plano> {
 	public String editar(Long id, Model model) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	@GetMapping("/listar")
+	public String listar(Model model) {
+		model.addAttribute("listarPlano", planoService.listar());
+		return "plano/listar";
 	}
 
 	@Override

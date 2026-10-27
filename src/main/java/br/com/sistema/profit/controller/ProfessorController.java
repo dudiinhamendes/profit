@@ -20,14 +20,8 @@ public class ProfessorController implements CrudController<Professor> {
 	public ProfessorController(ProfessorService professorService) {
 		this.professorService = professorService;
 	}
-	
-	@GetMapping("/listar")
-	public String listar(Model model) {
-		List<Professor>listaProfessor=professorService.listar();
-		model.addAttribute("listaProfessor",listaProfessor);
-		return "professor/listar";
-	}
 
+	@Override
 	@GetMapping("/cadastrar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String cadastrar(Model model) {
@@ -45,6 +39,14 @@ public class ProfessorController implements CrudController<Professor> {
 	public String editar(Long id, Model model) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	@GetMapping("/listar")
+	public String listar(Model model) {
+		List<Professor>listaProfessor=professorService.listar();
+		model.addAttribute("listaProfessor",listaProfessor);
+		return "professor/listar";
 	}
 
 	@Override

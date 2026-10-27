@@ -19,19 +19,21 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	public AvaliacaoFisicaController(AvaliacaoFisicaService avaliacaoFisicaService) {
 		this.avaliacaoFisicaService = avaliacaoFisicaService;
 	}
-	
+
+	@Override
 	@GetMapping("/cadastrar")
 	public String cadastrar(Model model) {
 		model.addAttribute("avaliacaoFisica", new AvaliacaoFisica());
 	    return "avaliacao-fisica/form";
 	}
-	
-	@GetMapping("/listar")
-	public String listar(Model model) {
-		model.addAttribute("listaAvaliacao", avaliacaoFisicaService.listar());
-		return "avaliacao-fisica/listar";
+
+	@Override
+	public String visualizar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
+	@Override
 	@GetMapping("/editar") 
 	@PreAuthorize("hasAnyRole('PROFESSOR', 'ADMIN')")
 	public String editar(@RequestParam Long id, Model model) {
@@ -46,9 +48,10 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	}
 
 	@Override
-	public String visualizar(Long id, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping("/listar")
+	public String listar(Model model) {
+		model.addAttribute("listaAvaliacao", avaliacaoFisicaService.listar());
+		return "avaliacao-fisica/listar";
 	}
 
 	@Override

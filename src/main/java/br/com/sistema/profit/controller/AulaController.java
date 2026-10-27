@@ -18,12 +18,7 @@ public class AulaController implements CrudController<Aula> {
 		this.aulaService=aulaService;
 	}
 
-	@GetMapping("/listar")
-	public String listar(Model model) {
-		model.addAttribute("listaAula", aulaService.listar());
-		return "aula/listar";
-	}
-	
+	@Override
 	@GetMapping("/cadastrar")
 	public String cadastrar(Model model) {
 		model.addAttribute("aula", new Aula());
@@ -40,6 +35,13 @@ public class AulaController implements CrudController<Aula> {
 	public String editar(Long id, Model model) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	@GetMapping("/listar")
+	public String listar(Model model) {
+		model.addAttribute("listaAula", aulaService.listar());
+		return "aula/listar";
 	}
 
 	@Override
