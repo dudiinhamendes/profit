@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.sistema.profit.model.Professor;
-import br.com.sistema.profit.model.Usuario;
 import br.com.sistema.profit.service.ProfessorService;
 
 @Controller
