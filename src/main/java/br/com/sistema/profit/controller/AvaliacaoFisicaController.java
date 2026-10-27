@@ -64,4 +64,10 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@GetMapping("/deletar")
+	public String deletar(@RequestParam Long id) {
+		avaliacaoFisicaService.deletar(id);
+		return "redirect:/avaliacao-fisica/listar?success=deleted";
+	}
 }

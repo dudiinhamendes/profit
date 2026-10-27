@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Plano;
 import br.com.sistema.profit.service.PlanoService;
@@ -24,8 +25,8 @@ public class PlanoController implements CrudController<Plano> {
 	@GetMapping("/cadastrar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String cadastrar(Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		model.addAttribute("plano",new Plano());
+		return "plano/form";
 	}
 
 	@Override
@@ -40,8 +41,15 @@ public class PlanoController implements CrudController<Plano> {
 	@GetMapping("/editar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String editar(Long id, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		Plano plano = planoService.buscarPorId(id);
+		if (plano != null) {
+			model.addAttribute("edit", true);
+			model.addAttribute("plano", plano);
+			return "plano/form";
+		} else {
+			// adicionar erro ao log de plano não encontrado
+			return "redirect:/plano/listar?error=notFound";
+		}
 	}
 
 	@Override
@@ -59,4 +67,15 @@ public class PlanoController implements CrudController<Plano> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	@PostMapping("/deletar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	public String deletar(@RequestParam Long id) {
+		planoService.deletar(id);
+		return "redirect:/plano/listar?success=deleted";
+		
+	}
+	
+	
 }
