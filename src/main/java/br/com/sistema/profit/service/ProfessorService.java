@@ -20,4 +20,9 @@ public class ProfessorService {
 		return professorRepository.findAll();
 	}
 
+	public Professor buscarPorId(Long id) {
+		return professorRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Professor não encontrado: " + id));
+	}
+
 }
