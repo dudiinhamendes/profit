@@ -40,8 +40,15 @@ public class PlanoController implements CrudController<Plano> {
 	@GetMapping("/editar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String editar(Long id, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		Plano plano = planoService.buscarPorId(id);
+		if (plano != null) {
+			model.addAttribute("edit", true);
+			model.addAttribute("plano", plano);
+			return "plano/form";
+		} else {
+			// adicionar erro ao log de plano não encontrado
+			return "redirect:/plano/listar?error=notFound";
+		}
 	}
 
 	@Override

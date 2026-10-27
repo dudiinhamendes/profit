@@ -21,6 +21,12 @@ public class PlanoService {
 		
 		return planoRepository.findAll();
 	}
+
+
+	public Plano buscarPorId(Long id) {
+		return planoRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Plano não encontrado: " + id));
+	}
 	
 	
 }
