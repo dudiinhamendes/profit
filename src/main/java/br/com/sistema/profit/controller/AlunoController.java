@@ -32,7 +32,6 @@ public class AlunoController implements CrudController<Aluno> {
 	@Override
 	@GetMapping("/visualizar")
 	public String visualizar(Long id, Model model) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -61,8 +60,8 @@ public class AlunoController implements CrudController<Aluno> {
 	@Override
 	@PostMapping("/salvar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
-	public String salvar(Aluno t) {
-		// TODO Auto-generated method stub
-		return null;
+	public String salvar(Aluno aluno) {
+		alunoService.salvar(aluno);
+	    return "redirect:/aluno/listar?success=saved";
 	} 
 }
