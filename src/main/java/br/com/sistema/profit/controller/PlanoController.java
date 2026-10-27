@@ -24,8 +24,8 @@ public class PlanoController implements CrudController<Plano> {
 	@GetMapping("/cadastrar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String cadastrar(Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		model.addAttribute("plano",new Plano());
+		return "plano/form";
 	}
 
 	@Override
