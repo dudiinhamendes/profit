@@ -32,6 +32,7 @@ public class AlunoController implements CrudController<Aluno> {
 	@Override
 	@GetMapping("/visualizar")
 	public String visualizar(Long id, Model model) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
