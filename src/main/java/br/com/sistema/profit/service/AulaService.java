@@ -21,4 +21,10 @@ public class AulaService {
 		return aulaRepository.findAll();
 	}
 
+	public Aula buscarPorId(Long id) {
+		return aulaRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado: " + id));
+	}
+	
+	
 }
