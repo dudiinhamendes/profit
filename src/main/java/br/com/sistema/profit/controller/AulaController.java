@@ -1,8 +1,10 @@
 package br.com.sistema.profit.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.sistema.profit.model.Aula;
@@ -10,7 +12,7 @@ import br.com.sistema.profit.service.AulaService;
 
 @Controller
 @RequestMapping("/aula")
-public class AulaController {
+public class AulaController implements CrudController<Aula> {
 
 	AulaService aulaService;
 
@@ -18,16 +20,41 @@ public class AulaController {
 		this.aulaService=aulaService;
 	}
 
+	@Override
+	@GetMapping("/cadastrar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN', 'PROFESSOR')")
+	public String cadastrar(Model model) {
+		model.addAttribute("aula", new Aula());
+		return "aula/form";
+	}
+
+	@Override
+	@GetMapping("/visualizar")
+	public String visualizar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@GetMapping("/editar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN', 'PROFESSOR')")
+	public String editar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	@GetMapping("/listar")
-	String listarAula(Model model) {
-		model.addAttribute("listaAula",aulaService.listar());
+	public String listar(Model model) {
+		model.addAttribute("listaAula", aulaService.listar());
 		return "aula/listar";
 	}
-	
-	@GetMapping("/cadastrar")
-	String cadastrarAula(Model model) {
-		model.addAttribute("aula",new Aula());
-		return "aula/form";
+
+	@Override
+	@PostMapping("/salvar")
+	public String salvar(Aula t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

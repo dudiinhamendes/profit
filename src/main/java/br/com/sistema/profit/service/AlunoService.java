@@ -19,4 +19,10 @@ public class AlunoService {
 	public List<Aluno> listar() {
 		return alunoRepository.findAll();
 	}
+	
+
+	public Aluno buscarPorId(Long id) {
+		return alunoRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado: " + id));
+	}
 }
