@@ -66,7 +66,7 @@ public class PlanoController implements CrudController<Plano> {
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String deletar(@RequestParam Long id) {
 		planoService.deletar(id);
-		return "redirect:/plano/listar";
+		return "redirect:/plano/listar?success=deleted";
 		
 	}
 	
