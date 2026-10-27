@@ -20,19 +20,21 @@ public class AlunoController implements CrudController<Aluno> {
 		this.alunoService = alunoService;
 	}
 
-	@GetMapping("/listar")
-	public String listar(Model model) {
-		model.addAttribute("listaAluno",alunoService.listar());
-		return "aluno/listar";
-	}
-
+	@Override
 	@GetMapping("/cadastrar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String cadastrar(Model model) {
 		model.addAttribute("aluno", new Aluno());
 		return "aluno/form";
 	}
-	
+
+	@Override
+	public String visualizar(Long id, Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	@GetMapping("/editar")
 	public String editar(@RequestParam Long id, Model model) {
 		Aluno aluno = alunoService.buscarPorId(id);
@@ -46,9 +48,10 @@ public class AlunoController implements CrudController<Aluno> {
 	}
 
 	@Override
-	public String visualizar(Long id, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping("/listar")
+	public String listar(Model model) {
+		model.addAttribute("listaAluno",alunoService.listar());
+		return "aluno/listar";
 	}
 
 	@Override
