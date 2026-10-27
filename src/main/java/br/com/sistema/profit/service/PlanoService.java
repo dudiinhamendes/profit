@@ -22,5 +22,7 @@ public class PlanoService {
 		return planoRepository.findAll();
 	}
 	
-	
+	public void deletar(Long id) {
+		planoRepository.deleteById(id);
+	}
 }
