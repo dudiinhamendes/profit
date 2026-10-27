@@ -68,6 +68,6 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	@GetMapping("/deletar")
 	public String deletar(@RequestParam Long id) {
 		avaliacaoFisicaService.deletar(id);
-		return "";
+		return "avaliacao-fisica/listar";
 	}
 }
