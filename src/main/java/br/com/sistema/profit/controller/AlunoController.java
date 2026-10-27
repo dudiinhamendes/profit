@@ -65,4 +65,11 @@ public class AlunoController implements CrudController<Aluno> {
 		// TODO Auto-generated method stub
 		return null;
 	} 
+	
+	@PostMapping("/desativar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	public String desativar(@RequestParam Long id) {
+	    alunoService.desativar(id);
+	    return "redirect:/aluno/listar?success=disabled";
+	}
 }

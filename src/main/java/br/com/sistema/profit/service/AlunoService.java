@@ -25,4 +25,10 @@ public class AlunoService {
 		return alunoRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado: " + id));
 	}
+	
+	public void desativar(Long id) {
+	    Aluno aluno = buscarPorId(id);
+	    aluno.setAtivo(false);
+	    alunoRepository.save(aluno);
+	}
 }
