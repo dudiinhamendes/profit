@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.sistema.profit.model.Professor;
@@ -30,12 +31,16 @@ public class ProfessorController implements CrudController<Professor> {
 	}
 
 	@Override
+	@GetMapping("/visualizar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String visualizar(Long id, Model model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	@GetMapping("/editar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String editar(Long id, Model model) {
 		// TODO Auto-generated method stub
 		return null;
@@ -43,6 +48,7 @@ public class ProfessorController implements CrudController<Professor> {
 
 	@Override
 	@GetMapping("/listar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String listar(Model model) {
 		List<Professor>listaProfessor=professorService.listar();
 		model.addAttribute("listaProfessor",listaProfessor);
@@ -50,6 +56,8 @@ public class ProfessorController implements CrudController<Professor> {
 	}
 
 	@Override
+	@PostMapping("/salvar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String salvar(Professor t) {
 		// TODO Auto-generated method stub
 		return null;

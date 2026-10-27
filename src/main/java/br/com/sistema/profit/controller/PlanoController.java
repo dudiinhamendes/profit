@@ -1,8 +1,10 @@
 package br.com.sistema.profit.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.sistema.profit.model.Plano;
@@ -19,18 +21,24 @@ public class PlanoController implements CrudController<Plano> {
 	}
 
 	@Override
+	@GetMapping("/cadastrar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String cadastrar(Model model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	@GetMapping("/visualizar")
+	@PreAuthorize("hasAnyRole('ALUNO', 'ATENDENTE', 'ADMIN')")
 	public String visualizar(Long id, Model model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	@GetMapping("/editar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String editar(Long id, Model model) {
 		// TODO Auto-generated method stub
 		return null;
@@ -38,12 +46,15 @@ public class PlanoController implements CrudController<Plano> {
 
 	@Override
 	@GetMapping("/listar")
+	@PreAuthorize("hasAnyRole('ALUNO', 'ATENDENTE', 'ADMIN')")
 	public String listar(Model model) {
 		model.addAttribute("listarPlano", planoService.listar());
 		return "plano/listar";
 	}
 
 	@Override
+	@PostMapping("/salvar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String salvar(Plano t) {
 		// TODO Auto-generated method stub
 		return null;

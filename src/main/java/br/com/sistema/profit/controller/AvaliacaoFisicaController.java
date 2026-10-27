@@ -4,6 +4,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,12 +23,14 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 
 	@Override
 	@GetMapping("/cadastrar")
+	@PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
 	public String cadastrar(Model model) {
 		model.addAttribute("avaliacaoFisica", new AvaliacaoFisica());
 	    return "avaliacao-fisica/form";
 	}
 
 	@Override
+	@GetMapping("/visualizar")
 	public String visualizar(Long id, Model model) {
 		// TODO Auto-generated method stub
 		return null;
@@ -55,6 +58,8 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	}
 
 	@Override
+	@PostMapping("/salvar")
+	@PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
 	public String salvar(AvaliacaoFisica t) {
 		// TODO Auto-generated method stub
 		return null;
