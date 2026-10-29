@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Professor;
 import br.com.sistema.profit.service.ProfessorService;
@@ -33,9 +34,15 @@ public class ProfessorController implements CrudController<Professor> {
 	@Override
 	@GetMapping("/visualizar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
-	public String visualizar(Long id, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visualizar(@RequestParam Long id, Model model) {
+		Professor professor = professorService.buscarPorId(id);
+		if (professor != null) {
+			model.addAttribute("edit", false);
+			model.addAttribute("professor", professor);
+			return "professor/form";
+		} else {
+			return "redirect:/professor/listar?error=notFound";
+		}
 	}
 
 	@Override
