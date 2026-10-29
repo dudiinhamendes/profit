@@ -24,9 +24,6 @@ public class AulaService {
 		return aulaRepository.findById(id).orElse(null);
 	}
 
-	public Long salvar(Aula aula) {
-		return aulaRepository.save(aula).getId();
-	}
 
 	public void deletar(Long id) {
 		aulaRepository.deleteById(id);
