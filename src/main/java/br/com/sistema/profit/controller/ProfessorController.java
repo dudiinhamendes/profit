@@ -72,9 +72,9 @@ public class ProfessorController implements CrudController<Professor> {
 	@Override
 	@PostMapping("/salvar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
-	public String salvar(Professor t) {
-		// TODO Auto-generated method stub
-		return null;
+	public String salvar(Professor professor) {
+		professorService.salvar(professor);
+	    return "redirect:/ptofessor/listar?success=saved";
 	}
 	
 }
