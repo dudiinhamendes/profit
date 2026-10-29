@@ -32,8 +32,14 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	@Override
 	@GetMapping("/visualizar")
 	public String visualizar(Long id, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
+		if (avaliacaoFisica != null) {
+			model.addAttribute("edit", false);
+			model.addAttribute("avaliacaoFisica" , avaliacaoFisica);
+			return "avaliacao-fisica/form";
+		} else {
+			return "redirect:/aluno/listar?error=notFound";
+		}
 	}
 
 	@Override
@@ -43,18 +49,18 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 		AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
 		if (avaliacaoFisica != null) {
 			model.addAttribute("edit", true);
-			model.addAttribute("avaliacaoFisica", avaliacaoFisica);
+			model.addAttribute("avaliacaoFisica" , avaliacaoFisica);
 			return "avaliacao-fisica/form";
 		} else {
-			return "redirect:/avaliacao-fisica/listar?error=notFound";
+			return "redirect:/aluno/listar?error=notFound";
 		}
 	}
 
 	@Override
 	@GetMapping("/listar")
 	public String listar(Model model) {
-		model.addAttribute("listaAvaliacao", avaliacaoFisicaService.listar());
-		return "avaliacao-fisica/listar";
+		//Avaliação física não precisa de listar mas como essa controller implementa a CrudController ela precisa de listar
+		return null;
 	}
 
 	@Override
