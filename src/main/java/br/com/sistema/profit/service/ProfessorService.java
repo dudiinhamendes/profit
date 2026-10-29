@@ -35,7 +35,7 @@ public Long salvar(Professor professor) {
  
 	if (professor.getId() != null) {
 		Professor professorBanco = buscarPorId(professor.getId());
-		if (professor.getSenha() == null || professor.getSenha().trim().isEmpty()) {
+		if (StringUtils.isBlank(professor.getSenha()) {
 			professor.setSenha(professorBanco.getSenha());
 		} else {
 			professor.setSenha(passwordEncoder.encode(professor.getSenha()));
