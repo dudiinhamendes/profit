@@ -32,8 +32,11 @@
 					<tr th:if="${#lists.isEmpty(listaAluno)}">
 						<td colspan="6" class="text-center text-muted py-4">Nenhum aluno cadastrado.</td>
 					</tr>
-				</tbody>
+				</tbody>	
 			</table>
+			<div class="text-end" sec:authorize="hasAnyRole('ADMIN','ATENDENTE')">
+				<a th:href="@{/aluno/cadastrar}" class="btn btn-primary bg-primary-pf">Cadastrar</a>
+			</div>
 		</div>
 	</main>
 
