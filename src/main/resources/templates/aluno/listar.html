@@ -16,26 +16,20 @@
 				<thead class="table-dark">
 					<tr>
 						<th>Nome</th>
-						<th>Usuário</th>
-						<th>Sexo</th>
-						<th>Plano</th>
-						<th>Cadastro</th>
+						<th>Telefone</th>
 						<th>Situação</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="a : ${listaA}">
+					<tr th:each="a : ${listaAluno}">
 						<td th:text="${a.nome}"></td>
-						<td th:text="${a.username}"></td>
-						<td th:text="${a.sexo}"></td>
-						<td th:text="${a.id_plano}"></td>
-						<td th:text="${#temporals.format(a.datacriacao, 'dd/MM/yyyy')}"></td>
+						<td th:text="${a.telefone}"></td>
 						<td>
 							<span th:if="${a.ativo}" class="badge bg-success">Ativo</span>
 							<span th:unless="${a.ativo}" class="badge bg-warning">Inativo</span>
 						</td>
 					</tr>
-					<tr th:if="${#lists.isEmpty(listaA)}">
+					<tr th:if="${#lists.isEmpty(listaAluno)}">
 						<td colspan="6" class="text-center text-muted py-4">Nenhum aluno cadastrado.</td>
 					</tr>
 				</tbody>
