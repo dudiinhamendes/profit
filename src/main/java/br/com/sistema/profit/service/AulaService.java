@@ -9,24 +9,24 @@ import br.com.sistema.profit.repository.AulaRepository;
 
 @Service
 public class AulaService {
-
+	
 	private AulaRepository aulaRepository;
-
+	
 	public AulaService(AulaRepository aulaRepository) {
 		this.aulaRepository = aulaRepository;
 	}
 
-	public List<Aula> listar() {
+	public List<Aula> listar(){
+		
 		return aulaRepository.findAll();
+	}
+	
+	public void deletar(Long id) {
+	  aulaRepository.deleteById(id);
 	}
 
 	public Aula buscarPorId(Long id) {
 		return aulaRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado: " + id));
-	}
-
-
-	public void deletar(Long id) {
-		aulaRepository.deleteById(id);
 	}
 }
