@@ -21,7 +21,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="a : ${listaAluno}">
+					<tr th:each="a : ${listaAluno}" th:onclick="|window.location.href='@{/aluno/visualizar?id={id}(id=${a.id})}'|" style="cursor: pointer;">
 						<td th:text="${a.nome}"></td>
 						<td th:text="${a.telefone}"></td>
 						<td>
