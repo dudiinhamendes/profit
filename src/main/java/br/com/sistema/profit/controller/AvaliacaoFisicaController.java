@@ -59,8 +59,8 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	@Override
 	@GetMapping("/listar")
 	public String listar(Model model) {
-		//Avaliação física não precisa de listar mas como essa controller implementa a CrudController ela precisa de listar
-		return null;
+		model.addAttribute("listaAvaliacao", avaliacaoFisicaService.listar());
+		return "avaliacao-fisica/listar";
 	}
 
 	@Override
