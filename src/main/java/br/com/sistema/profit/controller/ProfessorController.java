@@ -67,7 +67,7 @@ public class ProfessorController implements CrudController<Professor> {
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String salvar(Professor professor) {
 		professorService.salvar(professor);
-	    return "redirect:/ptofessor/listar?success=saved";
+	    return "redirect:/professor/listar?success=saved";
 	}
 	
 }
