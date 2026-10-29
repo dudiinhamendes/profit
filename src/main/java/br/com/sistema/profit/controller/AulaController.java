@@ -31,9 +31,17 @@ public class AulaController implements CrudController<Aula> {
 
 	@Override
 	@GetMapping("/visualizar")
-	public String visualizar(Long id, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+	@PreAuthorize("hasAnyRole('ALUNO', 'ATENDENTE', 'ADMIN', 'PROFESSOR')")
+	public String visualizar(@RequestParam Long id, Model model) {
+		Aula aula = aulaService.buscarPorId(id);
+		if (aula != null) {
+			model.addAttribute("edit", false);
+			model.addAttribute("aula", aula);
+			return "aula/form";
+		} else {
+			// adicionar erro ao log de aula não encontrada
+			return "redirect:/aula/listar?error=notFound";
+		}
 	}
 
 	@Override
