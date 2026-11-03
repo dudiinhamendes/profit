@@ -68,7 +68,7 @@ public class AulaController implements CrudController<Aula> {
 
 	@Override
 	@PostMapping("/salvar")
-	@PreAuthorize("hasAnyRole('PROFESSOR', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN', 'PROFESSOR')")
 	public String salvar(@ModelAttribute Aula aula) {
 		aulaService.salvar(aula);
 	    return "redirect:/aula/listar?success=saved";
