@@ -56,7 +56,7 @@ public class PlanoController implements CrudController<Plano> {
 	@GetMapping("/listar")
 	@PreAuthorize("hasAnyRole('ALUNO', 'ATENDENTE', 'ADMIN')")
 	public String listar(Model model) {
-		model.addAttribute("listarPlano", planoService.listar());
+		model.addAttribute("listaPlano", planoService.listar());
 		return "plano/listar";
 	}
 
