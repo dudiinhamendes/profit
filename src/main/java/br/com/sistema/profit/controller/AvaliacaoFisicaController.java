@@ -66,8 +66,8 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	@Override
 	@PostMapping("/salvar")
 	@PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
-	public String salvar(AvaliacaoFisica t) {
-		// TODO Auto-generated method stub
+	public String salvar(AvaliacaoFisica avaliacaoFisica) {
+		avaliacaoFisicaService.salvar(avaliacaoFisica);
 		return null;
 	}
 	
