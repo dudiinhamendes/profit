@@ -23,3 +23,5 @@ insert into avaliacao_fisica (aluno_id, professor_id, peso, percentual_gordura, 
 values (4, 7, '70.80', '15.20', '1.72'),
 (6, 7, '65.60', '17.25', '1.66'),
 (5, 9, '62.10', '12.60', '1.60');
+
+insert into plano(id, nome, preco, duracao,data_inicio)values(1,'hoje', '29.99', '20','2026-06-07');
