@@ -29,4 +29,11 @@ public class AulaService {
 		return aulaRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado: " + id));
 	}
+
+	public Long salvar(Aula aula) {
+		
+		return aulaRepository.save(aula).getId();
+	}
+	
 }
+
