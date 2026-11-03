@@ -6,4 +6,5 @@ import br.com.sistema.profit.model.Plano;
 
 public interface PlanoRepository extends JpaRepository<Plano,Long>{
 
-}
+	boolean existsByNome (String nome);
+} 
