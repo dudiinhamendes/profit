@@ -68,7 +68,7 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	@PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
 	public String salvar(AvaliacaoFisica avaliacaoFisica) {
 		avaliacaoFisicaService.salvar(avaliacaoFisica);
-		return null;
+		return "Redirect:/aluno/visualizar";
 	}
 	
 	@GetMapping("/deletar")

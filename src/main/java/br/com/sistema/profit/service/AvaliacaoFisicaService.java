@@ -31,13 +31,8 @@ public class AvaliacaoFisicaService {
 		avaliacaoFisicaRepository.deleteById(id);
 	}
 	
-	public Long salvar(AvaliacaoFisica avaliacaoFisica) {
-		if (avaliacaoFisica.getAluno() == null || avaliacaoFisica.getProfessor() == null) {
+	public Long salvar(AvaliacaoFisica avaliacaoFisica) {	
 			return avaliacaoFisicaRepository.save(avaliacaoFisica).getId();
-		}
-		else {
-			return avaliacaoFisicaRepository.save(avaliacaoFisica).getId();
-		}
 	}
 	
 } 
