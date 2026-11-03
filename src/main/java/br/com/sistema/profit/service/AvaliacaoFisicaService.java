@@ -31,4 +31,8 @@ public class AvaliacaoFisicaService {
 		avaliacaoFisicaRepository.deleteById(id);
 	}
 	
+	public Long salvar(AvaliacaoFisica avaliacaoFisica) {	
+			return avaliacaoFisicaRepository.save(avaliacaoFisica).getId();
+	}
+	
 } 
