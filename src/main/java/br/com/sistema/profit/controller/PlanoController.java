@@ -69,9 +69,9 @@ public class PlanoController implements CrudController<Plano> {
 	@Override
 	@PostMapping("/salvar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
-	public String salvar(Plano t) {
-		// TODO Auto-generated method stub
-		return null;
+	public String salvar(Plano plano) {
+		planoService.salvar(plano);
+		return "redirect:/plano/listar?success=saved";
 	}
 	
 	
