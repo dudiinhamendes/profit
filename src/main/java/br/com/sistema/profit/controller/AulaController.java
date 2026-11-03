@@ -4,6 +4,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,9 +68,10 @@ public class AulaController implements CrudController<Aula> {
 
 	@Override
 	@PostMapping("/salvar")
-	public String salvar(Aula t) {
-		// TODO Auto-generated method stub
-		return null;
+	@PreAuthorize("hasAnyRole('PROFESSOR', 'ADMIN')")
+	public String salvar(@ModelAttribute Aula aula) {
+		aulaService.salvar(aula);
+	    return "redirect:/aula/listar?success=saved";
 	}
 	
 	@GetMapping("/deletar")
