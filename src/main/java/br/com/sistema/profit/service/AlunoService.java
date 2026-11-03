@@ -2,11 +2,11 @@ package br.com.sistema.profit.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import br.com.sistema.profit.model.Aluno;
 import br.com.sistema.profit.repository.AlunoRepository;
-import io.micrometer.common.util.StringUtils;
 
 @Service
 public class AlunoService {
