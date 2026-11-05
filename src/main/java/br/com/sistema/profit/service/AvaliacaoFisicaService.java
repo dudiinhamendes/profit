@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.sistema.profit.model.AvaliacaoFisica;
 import br.com.sistema.profit.repository.AvaliacaoFisicaRepository;
+import br.com.sistema.profit.security.NaoEncontradoException;
 
 @Service
 public class AvaliacaoFisicaService {
@@ -22,9 +23,9 @@ public class AvaliacaoFisicaService {
 		return avaliacaoFisicaRepository.findAll();
 	}
 	
-	public AvaliacaoFisica buscarPorId(Long id) {
+	public AvaliacaoFisica buscarPorId(Long id) throws NaoEncontradoException {
 		return avaliacaoFisicaRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Avaliação Física não encontrado: " + id));
+				.orElseThrow(() -> new NaoEncontradoException("Avaliação Física não encontrado: " + id));
 	}
 	
 	public void deletar(Long id) {

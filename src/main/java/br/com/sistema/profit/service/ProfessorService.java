@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.sistema.profit.model.Professor;
 import br.com.sistema.profit.repository.ProfessorRepository;
+import br.com.sistema.profit.security.NaoEncontradoException;
 
 @Service
 public class ProfessorService {
@@ -23,12 +24,12 @@ public class ProfessorService {
 		return professorRepository.findAll();
 	}
 
-	public Professor buscarPorId(Long id) {
+	public Professor buscarPorId(Long id) throws NaoEncontradoException{
 		return professorRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Professor não encontrado: " + id));
+				.orElseThrow(() -> new NaoEncontradoException("Professor não encontrado: " + id));
 	}
 	
-	public Long salvar(Professor professor) {
+	public Long salvar(Professor professor) throws NaoEncontradoException {
 			
 		professor.setRole("ROLE_PROFESSOR");
 	 

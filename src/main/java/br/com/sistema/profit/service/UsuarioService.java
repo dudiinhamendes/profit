@@ -1,5 +1,7 @@
 package br.com.sistema.profit.service;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,10 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 import br.com.sistema.profit.model.Usuario;
 import br.com.sistema.profit.repository.UsuarioRepository;
+import br.com.sistema.profit.security.NaoEncontradoException;
 
 @Service
 public class UsuarioService implements UserDetailsService {
@@ -39,7 +40,7 @@ public class UsuarioService implements UserDetailsService {
 		return usuarioRepository.findAll();
 	}
 	
-	public Long salvar(Usuario usuario) {
+	public Long salvar(Usuario usuario) throws NaoEncontradoException{
 		if (usuario.getRole() == null || usuario.getRole().trim().isEmpty()) {
 			usuario.setRole("ROLE_USUARIO");
 		}
@@ -60,8 +61,8 @@ public class UsuarioService implements UserDetailsService {
 		return usuarioRepository.save(usuario).getId();
 	}
 	 
-	public Usuario buscarPorId(Long id) {
+	public Usuario buscarPorId(Long id) throws NaoEncontradoException {
 		return usuarioRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado: " + id));
+				.orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado: " + id));
 	}
 }

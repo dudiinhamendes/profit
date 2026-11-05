@@ -1,5 +1,7 @@
 package br.com.sistema.profit.controller;
 
+import java.util.Optional;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Aula;
+import br.com.sistema.profit.security.NaoEncontradoException;
 import br.com.sistema.profit.service.AulaService;
 
 @Controller
@@ -34,14 +37,13 @@ public class AulaController implements CrudController<Aula> {
 	@GetMapping("/visualizar")
 	@PreAuthorize("hasAnyRole('ALUNO', 'ATENDENTE', 'ADMIN', 'PROFESSOR')")
 	public String visualizar(@RequestParam Long id, Model model) {
-		Aula aula = aulaService.buscarPorId(id);
-		if (aula != null) {
+		try {
+			Aula aula = aulaService.buscarPorId(id);
 			model.addAttribute("edit", false);
 			model.addAttribute("aula", aula);
 			return "aula/form";
-		} else {
-			// adicionar erro ao log de aula não encontrada
-			return "redirect:/aula/listar?error=notFound";
+		} catch (NaoEncontradoException e) {
+			return "redirect:/aula/listar?msg=e-notFound";
 		}
 	}
 
@@ -49,19 +51,20 @@ public class AulaController implements CrudController<Aula> {
 	@GetMapping("/editar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN', 'PROFESSOR')")
 	public String editar(@RequestParam Long id, Model model) {
-		Aula aula = aulaService.buscarPorId(id);
-		if (aula != null) {
+		try {
+			Aula aula = aulaService.buscarPorId(id);
 			model.addAttribute("edit", true);
 			model.addAttribute("aula", aula);
 			return "aula/form";
-		} else {
-			return "redirect:/aula/listar?error=notFound";
+		} catch (NaoEncontradoException e) {
+			return "redirect:/aula/listar?msg=e-notFound";
 		}
 	}
 
 	@Override
 	@GetMapping("/listar")
-	public String listar(Model model) {
+	public String listar(@RequestParam Optional<String> msg, Model model) {
+		msg.ifPresent(m -> adicionaMensagem(model, m));
 		model.addAttribute("listaAula", aulaService.listar());
 		return "aula/listar";
 	}
@@ -71,12 +74,12 @@ public class AulaController implements CrudController<Aula> {
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN', 'PROFESSOR')")
 	public String salvar(@ModelAttribute Aula aula) {
 		aulaService.salvar(aula);
-	    return "redirect:/aula/listar?success=saved";
+		return "redirect:/aula/listar?msg=s-saved";
 	}
-	
+
 	@GetMapping("/deletar")
 	public String deletar(@RequestParam Long id) {
-	aulaService.deletar(id);
-	return "redirect:/aula/listar?success=deleted";
+		aulaService.deletar(id);
+		return "redirect:/aula/listar?msg=s-deleted";
 	}
 }

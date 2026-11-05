@@ -1,6 +1,7 @@
 package br.com.sistema.profit.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Professor;
+import br.com.sistema.profit.security.NaoEncontradoException;
 import br.com.sistema.profit.service.ProfessorService;
 
 @Controller
@@ -36,13 +38,13 @@ public class ProfessorController implements CrudController<Professor> {
 	@GetMapping("/visualizar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String visualizar(@RequestParam Long id, Model model) {
-		Professor professor = professorService.buscarPorId(id);
-		if (professor != null) {
+		try {
+			Professor professor = professorService.buscarPorId(id);
 			model.addAttribute("edit", false);
 			model.addAttribute("professor", professor);
 			return "professor/form";
-		} else {
-			return "redirect:/professor/listar?error=notFound";
+		} catch(NaoEncontradoException _) {
+			return "redirect:/professor/listar?msg=e-notFound";
 		}
 	}
 
@@ -50,23 +52,24 @@ public class ProfessorController implements CrudController<Professor> {
 	@GetMapping("/editar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String editar(Long id, Model model) {
-		Professor professor = professorService.buscarPorId(id);
-		if (professor != null) {
+		try {
+			Professor professor = professorService.buscarPorId(id);
 			model.addAttribute("edit", true);
 			model.addAttribute("professor", professor);
 			return "professor/form";
-		} else {
+		} catch(NaoEncontradoException _) {
 			// adicionar erro ao log de professor não encontrado
-			return "redirect:/professor/listar?error=notFound";
+			return "redirect:/professor/listar?msg=e-notFound";
 		}
 	}
 
 	@Override
 	@GetMapping("/listar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
-	public String listar(Model model) {
+	public String listar(@RequestParam Optional<String> msg, Model model) {
+		msg.ifPresent(m -> adicionaMensagem(model, m));
 		List<Professor>listaProfessor=professorService.listar();
-		model.addAttribute("listaProfessor",listaProfessor);
+		model.addAttribute("listaProfessor", listaProfessor);
 		return "professor/listar";
 	}
 
@@ -74,8 +77,12 @@ public class ProfessorController implements CrudController<Professor> {
 	@PostMapping("/salvar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String salvar(@ModelAttribute Professor professor) {
-		professorService.salvar(professor);
-	    return "redirect:/professor/listar?success=saved";
+		try {
+			professorService.salvar(professor);
+			return "redirect:/professor/listar?msg=s-saved";
+		} catch(NaoEncontradoException _) {
+			return "redirect:/professor/listar?msg=e-notFound";
+		}
 	}
 	
 }

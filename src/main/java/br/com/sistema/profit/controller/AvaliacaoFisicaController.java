@@ -1,5 +1,7 @@
 package br.com.sistema.profit.controller;
 
+import java.util.Optional;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.AvaliacaoFisica;
+import br.com.sistema.profit.security.NaoEncontradoException;
 import br.com.sistema.profit.service.AvaliacaoFisicaService;
 
 @Controller
@@ -32,13 +35,13 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	@Override
 	@GetMapping("/visualizar")
 	public String visualizar(Long id, Model model) {
-		AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
-		if (avaliacaoFisica != null) {
+		try {
+			AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
 			model.addAttribute("edit", false);
 			model.addAttribute("avaliacaoFisica" , avaliacaoFisica);
 			return "avaliacao-fisica/form";
-		} else {
-			return "redirect:/aluno/listar?error=notFound";
+		} catch (NaoEncontradoException _) {
+			return "redirect:/aluno/listar?msg=e-notFound";
 		}
 	}
 
@@ -46,19 +49,20 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	@GetMapping("/editar") 
 	@PreAuthorize("hasAnyRole('PROFESSOR', 'ADMIN')")
 	public String editar(@RequestParam Long id, Model model) {
-		AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
-		if (avaliacaoFisica != null) {
+		try {
+			AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
 			model.addAttribute("edit", true);
 			model.addAttribute("avaliacaoFisica" , avaliacaoFisica);
 			return "avaliacao-fisica/form";
-		} else {
-			return "redirect:/aluno/listar?error=notFound";
+		} catch(NaoEncontradoException _) {
+			return "redirect:/aluno/listar?msg=e-notFound";
 		}
 	}
 
 	@Override
 	@GetMapping("/listar")
-	public String listar(Model model) {
+	public String listar(@RequestParam Optional<String> msg, Model model) {
+		msg.ifPresent(m -> adicionaMensagem(model, m));
 		model.addAttribute("listaAvaliacao", avaliacaoFisicaService.listar());
 		return "avaliacao-fisica/listar";
 	}
@@ -68,12 +72,12 @@ public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica
 	@PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
 	public String salvar(AvaliacaoFisica avaliacaoFisica) {
 		avaliacaoFisicaService.salvar(avaliacaoFisica);
-		return "redirect:/aluno/listar?success=saved";
+		return "redirect:/aluno/listar?msg=s-saved";
 	}
 	
 	@GetMapping("/deletar")
 	public String deletar(@RequestParam Long id) {
 		avaliacaoFisicaService.deletar(id);
-		return "redirect:/avaliacao-fisica/listar?success=deleted";
+		return "redirect:/avaliacao-fisica/listar?msg=s-deleted";
 	}
 }

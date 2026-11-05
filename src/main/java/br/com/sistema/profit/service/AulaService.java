@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.sistema.profit.model.Aula;
 import br.com.sistema.profit.repository.AulaRepository;
+import br.com.sistema.profit.security.NaoEncontradoException;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class AulaService {
@@ -25,9 +27,9 @@ public class AulaService {
 	  aulaRepository.deleteById(id);
 	}
 
-	public Aula buscarPorId(Long id) {
+	public Aula buscarPorId(Long id) throws NaoEncontradoException{
 		return aulaRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado: " + id));
+				.orElseThrow(() -> new NaoEncontradoException("Aluno não encontrado: " + id));
 	}
 
 	public Long salvar(Aula aula) {

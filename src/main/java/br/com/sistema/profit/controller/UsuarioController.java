@@ -1,5 +1,7 @@
 package br.com.sistema.profit.controller; 
 
+import java.util.Optional;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Usuario;
+import br.com.sistema.profit.security.NaoEncontradoException;
 import br.com.sistema.profit.service.UsuarioService;
 
 @Controller
@@ -33,34 +36,35 @@ public class UsuarioController implements CrudController<Usuario> {
 	@Override
 	@GetMapping("/visualizar")
 	public String visualizar(@RequestParam Long id, Model model) {
-		Usuario usuario = usuarioService.buscarPorId(id);
-		if (usuario != null) {
+		try {
+			Usuario usuario = usuarioService.buscarPorId(id);
 			model.addAttribute("edit", false);
 			model.addAttribute("usuario", usuario);
 			return "usuario/form";
-		} else {
+		} catch(NaoEncontradoException _) {
 			// adicionar erro ao log de usuário não encontrado
-			return "redirect:/usuario/listar?error=notFound";
+			return "redirect:/usuario/listar?msg=e-notFound";
 		}
 	}
 
 	@Override
 	@GetMapping("/editar")
 	public String editar(@RequestParam Long id, Model model) {
-		Usuario usuario = usuarioService.buscarPorId(id);
-		if (usuario != null) {
+		try {
+			Usuario usuario = usuarioService.buscarPorId(id);
 			model.addAttribute("edit", true);
 			model.addAttribute("usuario", usuario);
 			return "usuario/form";
-		} else {
+		} catch(NaoEncontradoException _) {
 			// adicionar erro ao log de usuário não encontrado
-			return "redirect:/usuario/listar?error=notFound";
+			return "redirect:/usuario/listar?msg=e-notFound";
 		}
 	}
 
 	@Override
 	@GetMapping("/listar")
-	public String listar(Model model) {
+	public String listar(@RequestParam Optional<String> msg, Model model) {
+		msg.ifPresent(m -> adicionaMensagem(model, m));
 		model.addAttribute("listaUsuario", usuarioService.listar());
 		return "usuario/listar";
 	}
@@ -68,7 +72,11 @@ public class UsuarioController implements CrudController<Usuario> {
 	@Override
 	@PostMapping("/salvar")
 	public String salvar(@ModelAttribute Usuario usuario) {
-		usuarioService.salvar(usuario);
-		return "redirect:/usuario/listar";
+		try {
+			usuarioService.salvar(usuario);
+			return "redirect:/usuario/listar?msg=s-saved";
+		} catch(NaoEncontradoException _) {
+			return "redirect:/usuario/listar?msg=e-notFound";
+		}
 	}
 }
