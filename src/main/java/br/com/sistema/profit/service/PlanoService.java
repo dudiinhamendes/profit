@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.sistema.profit.model.Plano;
 import br.com.sistema.profit.repository.PlanoRepository;
+import br.com.sistema.profit.security.FoiEncontradoException;
+import br.com.sistema.profit.security.NaoEncontradoException;
 
 @Service
 public class PlanoService {
@@ -24,9 +26,9 @@ public class PlanoService {
 	}
 
 
-	public Plano buscarPorId(Long id) {
+	public Plano buscarPorId(Long id) throws NaoEncontradoException {
 		return planoRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Plano não encontrado: " + id));
+				.orElseThrow(() -> new NaoEncontradoException("Plano não encontrado: " + id));
 	}
 	
 	public void deletar(Long id) {
@@ -34,12 +36,12 @@ public class PlanoService {
 	}
 	
 	
-	public Long salvar(Plano plano) { 
+	public Long salvar(Plano plano) throws FoiEncontradoException{ 
 		
 		boolean existePlanoComMesmoNome = planoRepository.existsByNome(plano.getNome());
 		
 		if (plano.getId() == null && existePlanoComMesmoNome) {
-			throw new IllegalArgumentException("Já existe um plano cadastrado com este nome.");
+			throw new FoiEncontradoException("Já existe um plano cadastrado com este nome.");
 		}
 		
 		if (plano.getDataInicio() == null) {

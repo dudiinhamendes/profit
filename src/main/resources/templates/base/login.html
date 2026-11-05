@@ -11,8 +11,8 @@
 			<h3 class="card-title text-center mb-4">Acessar o Sistema</h3>
 			
 			<!-- Mensagem de Erro (se houver) -->
-			<div th:if="${mensagemErro}" class="alert alert-error" th:text="${mensagemErro}"></div>
-			<div th:if="${mensagemLogout}" class="alert alert-success" th:text="${mensagemLogout}"></div>
+			<div th:if="${mensagemErro}" class="alert alert-danger" th:text="${mensagemErro}"></div>
+			<div th:if="${mensagemLogout}" class="alert alert-primary" th:text="${mensagemLogout}"></div>
 			
 			<form th:action="@{/perform_login}" method="POST">
 			    <div class="form-group">

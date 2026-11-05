@@ -1,5 +1,7 @@
 package br.com.sistema.profit.controller;
 
+import java.util.Optional;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Plano;
+import br.com.sistema.profit.security.FoiEncontradoException;
+import br.com.sistema.profit.security.NaoEncontradoException;
 import br.com.sistema.profit.service.PlanoService;
 
 @Controller
@@ -33,13 +37,13 @@ public class PlanoController implements CrudController<Plano> {
 	@GetMapping("/visualizar")
 	@PreAuthorize("hasAnyRole('ALUNO', 'ATENDENTE', 'ADMIN')")
 	public String visualizar(@RequestParam Long id, Model model) {
-		Plano plano = planoService.buscarPorId(id);
-		if (plano != null) {
+		try {
+			Plano plano = planoService.buscarPorId(id);
 			model.addAttribute("edit", false);
 			model.addAttribute("plano", plano);
 			return "plano/form";
-		} else {
-			return "redirect:/plano/listar?error=notFound";
+		} catch(NaoEncontradoException _) {
+			return "redirect:/plano/listar?msg=e-notFound";
 		}
 	}
 
@@ -47,21 +51,22 @@ public class PlanoController implements CrudController<Plano> {
 	@GetMapping("/editar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String editar(Long id, Model model) {
-		Plano plano = planoService.buscarPorId(id);
-		if (plano != null) {
+		try {
+			Plano plano = planoService.buscarPorId(id);
 			model.addAttribute("edit", true);
 			model.addAttribute("plano", plano);
 			return "plano/form";
-		} else {
+		} catch(NaoEncontradoException _) {
 			// adicionar erro ao log de plano não encontrado
-			return "redirect:/plano/listar?error=notFound";
+			return "redirect:/plano/listar?msg=e-notFound";
 		}
 	}
 
 	@Override
 	@GetMapping("/listar")
 	@PreAuthorize("hasAnyRole('ALUNO', 'ATENDENTE', 'ADMIN')")
-	public String listar(Model model) {
+	public String listar(@RequestParam Optional<String> msg, Model model) {
+		msg.ifPresent(m -> adicionaMensagem(model, m));
 		model.addAttribute("listaPlano", planoService.listar());
 		return "plano/listar";
 	}
@@ -70,8 +75,12 @@ public class PlanoController implements CrudController<Plano> {
 	@PostMapping("/salvar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String salvar(Plano plano) {
-		planoService.salvar(plano);
-		return "redirect:/plano/listar?success=saved";
+		try {
+			planoService.salvar(plano);
+			return "redirect:/plano/listar?msg=s-saved";
+		} catch(FoiEncontradoException _) {
+			return "redirect=/plano/listar?msg=e-sameName";
+		}
 	}
 	
 	
@@ -79,7 +88,7 @@ public class PlanoController implements CrudController<Plano> {
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String deletar(@RequestParam Long id) {
 		planoService.deletar(id);
-		return "redirect:/plano/listar?success=deleted";
+		return "redirect:/plano/listar?msg=s-deleted";
 		
 	}
 	
