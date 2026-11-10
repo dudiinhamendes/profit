@@ -18,7 +18,7 @@
 					<tr>
 						<th>Nome</th>
 						<th>Preço</th>
-						<th>Duração</th>
+						<th>Modalidade</th>
 						<th>Data de inicio</th>
 					</tr>
 				</thead>
@@ -26,7 +26,7 @@
 					<tr th:each="p : ${listaPlano}">
 						<td th:text="${p.nome}"></td>
 						<td th:text="${p.preco}"></td>
-						<td th:text="${p.duracao}"></td>
+						<td th:text="${p.modalidade}"></td>
 						<td th:text="${p.dataInicio}"></td>
 					</tr>
 					<tr th:if="${#lists.isEmpty(listaPlano)}">
