@@ -13,16 +13,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Aula;
 import br.com.sistema.profit.security.NaoEncontradoException;
+import br.com.sistema.profit.service.AlunoService;
 import br.com.sistema.profit.service.AulaService;
+import br.com.sistema.profit.service.ProfessorService;
 
 @Controller
 @RequestMapping("/aula")
 public class AulaController implements CrudController<Aula> {
 
 	AulaService aulaService;
+	AlunoService alunoService;
+	ProfessorService professorService;
 
-	public AulaController(AulaService aulaService) {
-		this.aulaService=aulaService;
+	public AulaController(AulaService aulaService, AlunoService alunoService, ProfessorService professorService) {
+		this.aulaService = aulaService;
+		this.alunoService = alunoService;
+		this.professorService = professorService;
 	}
 
 	@Override
@@ -30,6 +36,8 @@ public class AulaController implements CrudController<Aula> {
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN', 'PROFESSOR')")
 	public String cadastrar(Model model) {
 		model.addAttribute("aula", new Aula());
+		model.addAttribute("listaAluno", alunoService.listar());
+		model.addAttribute("listaProfessor", professorService.listar());
 		return "aula/form";
 	}
 
@@ -55,6 +63,8 @@ public class AulaController implements CrudController<Aula> {
 			Aula aula = aulaService.buscarPorId(id);
 			model.addAttribute("edit", true);
 			model.addAttribute("aula", aula);
+			model.addAttribute("listaAluno", alunoService.listar());
+			model.addAttribute("listaProfessor", professorService.listar());
 			return "aula/form";
 		} catch (NaoEncontradoException e) {
 			return "redirect:/aula/listar?msg=e-notFound";
