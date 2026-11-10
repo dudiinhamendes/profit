@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.sistema.profit.model.Aluno;
 import br.com.sistema.profit.model.AvaliacaoFisica;
 import br.com.sistema.profit.security.AcessoUsuario;
 import br.com.sistema.profit.security.NaoEncontradoException;
@@ -66,7 +65,6 @@ public class AvaliacaoFisicaController {
 	@PostMapping("/salvar")
 	@PreAuthorize("hasAnyRole('PROFESSOR')")
 	public String salvar(AvaliacaoFisica avaliacaoFisica, @AuthenticationPrincipal AcessoUsuario usuarioAtual) {
-		IO.println(usuarioAtual.getId());
 		try {
 			avaliacaoFisicaService.salvar(avaliacaoFisica, usuarioAtual.getId());
 			return "redirect:/aluno/listar?msg=s-saved";
