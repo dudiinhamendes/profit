@@ -13,14 +13,16 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary-pf text-white">
-                        <h5 class="mb-0">Cadastro de aluno</h5>
+						<h5 class="mb-0" th:if="${aluno.id}" th:text="${edit} ? 'Edição de usuário' : ${aluno.nome}">Bug</h5>
+                        <h5 class="mb-0" th:unless="${aluno.id}">Cadastro de aluno</h5>
                     </div>
                     <div class="card-body">
 
                         <div class="alert alert-success" role="alert" th:if="${sucesso}" th:text="${sucesso}">Sucesso</div>
                         <div class="alert alert-danger" role="alert" th:if="${erro}" th:text="${erro}">Erro</div>
 
-                        <form th:action="@{/aluno/salvar}" th:object="${aluno}" method="POST">
+						<form th:action="@{/aluno/salvar}" th:object="${aluno}" method="POST" th:if="${aluno.id == null OR edit}">
+							<input type="hidden" th:field="*{id}">
 
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Nome</label>
@@ -31,6 +33,11 @@
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" placeholder="Digite nome para login" required th:field="*{username}">
                             </div>
+							
+							<div class="mb-3">
+								<label for="telefone" class="form-label">Telefone</label>
+								<input type="tel" class="form-control" id="telefone" placeholder="Digite telefone para login" required th:field="*{telefone}">
+						    </div>
 
                             <div class="mb-3">
                                 <label for="senha" class="form-label">Senha</label>
@@ -58,6 +65,29 @@
                                 <button type="submit" class="btn btn-primary bg-primary-pf w-100">Salvar</button>
                             </div>
                         </form>
+						
+						<div class="card-body" th:unless="${aluno.id == null OR edit}">
+							<div class="mb-3">
+                                <label class="form-label text-muted">Nome</label>
+                                <div class="form-control-plaintext fw-bold" th:text="${aluno.nome}">Lorem Ipsum</div>
+                            </div>
+							<div class="mb-3">
+							    <label class="form-label text-muted">Telefone</label>
+							    <div class="form-control-plaintext fw-bold" th:text="${aluno.telefone}">Lorem Ipsum</div>
+							</div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Username</label>
+                                <div class="form-control-plaintext fw-bold" th:text="${aluno.username}">Lorem Ipsum</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Status</label>
+                                <div>
+                                    <span class="badge bg-success" th:if="${aluno.ativo}">Ativo</span>
+                                    <span class="badge bg-warning" th:unless="${aluno.ativo}">Inativo</span>
+                                </div>
+                            </div>
+                            <a th:href="@{/aluno/editar(id=${aluno.id})}" class="btn btn-primary bg-primary-pf w-100" sec:authorize="hasAnyRole('ADMIN','ATENDENTE')">Editar aluno</a>
+                        </div>
                     </div>
                 </div>
             </div>
