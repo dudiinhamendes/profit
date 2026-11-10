@@ -1,0 +1,113 @@
+<DOCTYPE html> 
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragments/util :: head-content(title='Pro Fit - Professor')}"></div>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+	<header th:replace="~{fragments/util :: cabecalho}"></header>
+
+	<main class="container my-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card shadow-sm">
+					<div class="card-header bg-primary-pf text-white">
+						<h5 class="mb-0" th:if="${professor.id}" th:text="${edit} ? 'Edição de professor' : ${professor.nome} "></h5>
+                        <h5 class="mb-0" th:unless="${professor.id}">Cadastro de Professor</h5>
+			          </div>
+					  <div class="card-body">
+						
+						<div class="alert alert-success" role="alert" th:if="${sucesso}" th:text="${sucesso}">Sucesso</div>
+						<div class="alert alert-danger" role="alert" th:if="${erro}" th:text="${erro}">Erro</div>
+						
+						<form th:action="@{/professor/salvar}" th:object="${professor}" method="POST" th:if="${professor.id == null OR edit}">
+							<input type="hidden" th:field="*{id}">
+
+							<div class="mb-3">
+								<label for="fullName" class="form-label">Nome</label>
+								<input type="text" class="form-control" id="fullName" placeholder="Digite nome" required th:field="*{nome}">
+							</div>
+			
+							<div class="mb-3">
+								<label for="username" class="form-label">Username</label>
+							    <input type="text" class="form-control" id="username" placeholder="Digite nome para login" required th:field="*{username}">
+							</div>
+							
+							<div class="mb-3">
+								<label for="senha" class="form-label">Senha</label>
+								<input type="password" class="form-control" id="senha" placeholder="Digite senha" th:field="*{senha}">
+							 </div>
+
+								
+							<div class="mb-3">
+								<label for="phone" class="form-label">Telefone</label>
+								<input type="text" class="form-control" id="phone" placeholder="Digite telefone" required th:field="*{telefone}">
+							 </div>
+							 
+							 <div class="mb-3">
+								<label for="cpf" class="form-label">CPF</label>
+								<input type="text" class="form-control" id="cpf" placeholder="Digite CPF" required th:field="*{cpf}" th:readonly="${professor.id != null}">
+							 </div>
+
+							 <div class="mb-3 form-check">
+							   <input type="checkbox" class="form-check-input" id="esta-ativo" required th:field="*{ativo}">
+							   <label class="form-check-label" for="esta-ativo">Ativo</label>
+							</div>
+
+							<div class="d-flex gap-3">
+							<a href="/" class="btn btn-secondary w-100">Cancelar</a>
+							<button type="submit" class="btn btn-primary bg-primary-pf w-100">Salvar</button>
+							</div>
+							</form>
+
+							<div class="card-body" th:unless="${professor.id == null OR edit}">
+								<div class="mb-3">
+									<label class="form-label text-muted">Nome</label>
+									<div class="form-control-plaintext fw-bold" th:text="${professor.nome}"></div>
+								 </div>
+								 
+								<div class="mb-3">
+									<label class="form-label text-muted">Username</label>
+									<div class="form-control-plaintext fw-bold" th:text="${professor.username}"></div>
+								</div>
+
+								<div class="mb-3">
+								<label class="form-label text-muted">Telefone</label>
+								<div class="form-control-plaintext fw-bold" th:text="${professor.telefone}"></div>
+								</div>
+
+								<div class="mb-3">
+									<label class="form-label text-muted">CPF</label>
+									<div class="form-control-plaintext fw-bold" th:text="${professor.cpf}"></div>
+							   	</div>
+
+								<div class="mb-3">
+									<label class="form-label text-muted">Data de criação</label>
+									<div class="form-control-plaintext fw-bold" th:text="${professor.dataCriacao}"></div>
+								 </div>
+								 
+								 <div class="mb-3">
+									<label class="form-label text-muted">Nível de acesso</label>
+									<div class="form-control-plaintext fw-bold" th:text="${professor.role}"></div>
+								 </div>
+								 
+								 <div class="mb-3">
+									<label class="form-label text-muted">Status</label>
+									<div>
+									      <span class="badge bg-success" th:if="${professor.ativo}">Ativo</span>
+									      <span class="badge bg-warning" th:unless="${professor.ativo}">Inativo</span>
+									 </div>
+								  </div>
+								  <a th:href="@{/professor/editar(id=${professor.id})}" class="btn btn-primary bg-primary-pf w-100" sec:authorize="hasAnyRole('ADMIN','ATENDENTE')">Editar professor</a>
+								  </div>
+		                      </div>
+						 </div>
+					  </div>
+				  </div>
+             </main> 
+	
+			 <footer th:replace="~{fragments/util :: rodape}"></footer>
+
+</body>
+</html>

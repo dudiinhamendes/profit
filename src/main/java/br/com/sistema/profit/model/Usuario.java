@@ -1,3 +1,4 @@
+
 package br.com.sistema.profit.model;
 
 import java.time.LocalDateTime;
