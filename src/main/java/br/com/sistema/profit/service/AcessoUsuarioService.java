@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.com.sistema.profit.model.Usuario;
 import br.com.sistema.profit.repository.UsuarioRepository;
+import br.com.sistema.profit.security.AcessoUsuario;
 
 @Service
 public class AcessoUsuarioService implements UserDetailsService {
@@ -27,12 +28,7 @@ public class AcessoUsuarioService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepository.findByUsername(username) 
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + username));
-		
-		 return User.builder() 
-				 .username(usuario.getUsername())
-					.password(usuario.getSenha())
-					.roles(usuario.getRole().replace("ROLE_", ""))
-					.build();
+		 return new AcessoUsuario(usuario);
 	}  
 	
 	public List<Usuario> listar() {

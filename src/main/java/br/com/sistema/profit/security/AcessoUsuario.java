@@ -52,4 +52,12 @@ public class AcessoUsuario implements UserDetails {
 		return usuario.isAtivo();
 	}
 	
+	public Long getId() {
+		return usuario.getId();
+	}
+
+	public boolean isAdmin() {
+		return this.getAuthorities().stream()
+				.anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+	}
 }
