@@ -25,7 +25,7 @@ public class Plano {
 	
 	private Double preco;
 	
-	private int duracao;
+	private String modalidade;
 	
 	private LocalDate dataInicio;
 }
