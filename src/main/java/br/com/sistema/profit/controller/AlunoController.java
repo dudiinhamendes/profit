@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.sistema.profit.model.Aluno;
 import br.com.sistema.profit.security.NaoEncontradoException;
 import br.com.sistema.profit.service.AlunoService;
+import br.com.sistema.profit.service.PlanoService;
 
 @Controller
 @RequestMapping("/aluno")
 public class AlunoController implements CrudController<Aluno> {
 
 	AlunoService alunoService;
+	PlanoService planoService;
 
 	public AlunoController(AlunoService alunoService) {
 		this.alunoService = alunoService;
@@ -29,6 +31,7 @@ public class AlunoController implements CrudController<Aluno> {
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String cadastrar(Model model) {
 		model.addAttribute("aluno", new Aluno());
+		model.addAttribute("listaPlano", planoService.listar());
 		return "aluno/form";
 	}
 
@@ -53,6 +56,7 @@ public class AlunoController implements CrudController<Aluno> {
 			Aluno aluno = alunoService.buscarPorId(id);
 			model.addAttribute("edit", true);
 			model.addAttribute("aluno", aluno);
+			model.addAttribute("listaPlano", planoService.listar());
 			return "aluno/form";
 		} catch(NaoEncontradoException _) {
 			return "redirect:/aluno/listar?msg=e-notFound";
