@@ -1,78 +1,78 @@
 package br.com.sistema.profit.controller;
 
-import java.util.Optional;
-
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.sistema.profit.model.Aluno;
 import br.com.sistema.profit.model.AvaliacaoFisica;
+import br.com.sistema.profit.security.AcessoUsuario;
 import br.com.sistema.profit.security.NaoEncontradoException;
+import br.com.sistema.profit.service.AlunoService;
 import br.com.sistema.profit.service.AvaliacaoFisicaService;
 
 @Controller
 @RequestMapping("/avaliacao-fisica")
-public class AvaliacaoFisicaController implements CrudController<AvaliacaoFisica> {
+public class AvaliacaoFisicaController {
 
 	AvaliacaoFisicaService avaliacaoFisicaService;
+	AlunoService alunoService;
 
-	public AvaliacaoFisicaController(AvaliacaoFisicaService avaliacaoFisicaService) {
+	public AvaliacaoFisicaController(AvaliacaoFisicaService avaliacaoFisicaService, AlunoService alunoService) {
 		this.avaliacaoFisicaService = avaliacaoFisicaService;
+		this.alunoService = alunoService;
 	}
 
-	@Override
-	@GetMapping("/cadastrar")
-	@PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
-	public String cadastrar(Model model) {
-		model.addAttribute("avaliacaoFisica", new AvaliacaoFisica());
-	    return "avaliacao-fisica/form";
+	@GetMapping("/cadastrar/{id}")
+	@PreAuthorize("hasAnyRole('PROFESSOR')")
+	public String cadastrar(@PathVariable String id, Model model) throws NaoEncontradoException {
+		AvaliacaoFisica avaliacaoFisica = new AvaliacaoFisica();
+		avaliacaoFisica.setAluno(alunoService.buscarPorId(Long.valueOf(id)));
+		model.addAttribute("avaliacaoFisica", avaliacaoFisica);
+	    return "avaliacaoFisica/form";
 	}
 
-	@Override
 	@GetMapping("/visualizar")
 	public String visualizar(Long id, Model model) {
 		try {
 			AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
 			model.addAttribute("edit", false);
 			model.addAttribute("avaliacaoFisica" , avaliacaoFisica);
-			return "avaliacao-fisica/form";
+			return "avaliacaoFisica/form";
 		} catch (NaoEncontradoException _) {
 			return "redirect:/aluno/listar?msg=e-notFound";
 		}
 	}
 
-	@Override
 	@GetMapping("/editar") 
-	@PreAuthorize("hasAnyRole('PROFESSOR', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('PROFESSOR')")
 	public String editar(@RequestParam Long id, Model model) {
 		try {
 			AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
 			model.addAttribute("edit", true);
 			model.addAttribute("avaliacaoFisica" , avaliacaoFisica);
-			return "avaliacao-fisica/form";
+			return "avaliacaoFisica/form";
 		} catch(NaoEncontradoException _) {
 			return "redirect:/aluno/listar?msg=e-notFound";
 		}
 	}
 
-	@Override
-	@GetMapping("/listar")
-	public String listar(@RequestParam Optional<String> msg, Model model) {
-		msg.ifPresent(m -> adicionaMensagem(model, m));
-		model.addAttribute("listaAvaliacao", avaliacaoFisicaService.listar());
-		return "avaliacao-fisica/listar";
-	}
-
-	@Override
 	@PostMapping("/salvar")
-	@PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
-	public String salvar(AvaliacaoFisica avaliacaoFisica) {
-		avaliacaoFisicaService.salvar(avaliacaoFisica);
-		return "redirect:/aluno/listar?msg=s-saved";
+	@PreAuthorize("hasAnyRole('PROFESSOR')")
+	public String salvar(AvaliacaoFisica avaliacaoFisica, @AuthenticationPrincipal AcessoUsuario usuarioAtual) {
+		IO.println(usuarioAtual.getId());
+		try {
+			avaliacaoFisicaService.salvar(avaliacaoFisica, usuarioAtual.getId());
+			return "redirect:/aluno/listar?msg=s-saved";
+		} catch(NaoEncontradoException _) {
+			return "redirect:/aluno/visualizar?id=" + avaliacaoFisica.getAluno().getId();
+		}
 	}
 	
 	@GetMapping("/deletar")
