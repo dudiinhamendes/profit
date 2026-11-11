@@ -121,37 +121,7 @@
                             </table>
                         </div>
 
-                        <hr>
-
-                        <h6 class="mb-3">Nova avaliação</h6>
-                        <form th:action="@{/avaliacao-fisica/salvar}" method="POST">
-                            <input type="hidden" name="aluno.id" th:value="${aluno.id}">
-
-                            <div class="mb-3">
-                                <label for="avProfessor" class="form-label">Professor</label>
-                                <select class="form-select" id="avProfessor" name="professor.id" required>
-                                    <option value="">Selecione...</option>
-                                    <option th:each="p : ${listaProfessor}" th:value="${p.id}" th:text="${p.nome}">Professores</option>
-                                </select>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="avPeso" class="form-label">Peso (kg)</label>
-                                    <input type="number" step="0.01" min="0" class="form-control" id="avPeso" name="peso" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="avGordura" class="form-label">% Gordura</label>
-                                    <input type="number" step="0.01" min="0" max="100" class="form-control" id="avGordura" name="percentualGordura" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="avAltura" class="form-label">Altura (m)</label>
-                                    <input type="number" step="0.01" min="0" class="form-control" id="avAltura" name="altura" required>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary bg-primary-pf w-100">Adicionar avaliação</button>
-                        </form>
+                       
                     </div>
                 </div>
             </div>
