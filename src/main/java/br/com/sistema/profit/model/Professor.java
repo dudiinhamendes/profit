@@ -20,9 +20,5 @@ public class Professor extends Usuario {
 	
 	private LocalDate dataDemissao;
 	
-	@Override
-	public String toString() {
-		return String.format(this.getNome());
-	}
 	
 }
