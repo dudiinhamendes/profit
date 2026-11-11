@@ -91,16 +91,15 @@
                     </div>
                 </div>
 
-               
                 <div class="card shadow-sm mt-4" th:unless="${aluno.id == null OR edit}" sec:authorize="hasAnyRole('ADMIN','PROFESSOR', 'ATENDENTE')">
                     <div class="card-header bg-primary-pf text-white">
                         <h5 class="mb-0">Avaliação Física</h5>
                     </div>
                     <div class="card-body">
 
-                        <p class="text-muted" th:if="${#lists.isEmpty(avaliacoes)}">Nenhuma avaliação cadastrada para este aluno.</p>
+                        <p class="text-muted" th:if="${#lists.isEmpty(listaAvaliacaoFisica)}">Nenhuma avaliação cadastrada para este aluno.</p>
 
-                        <div class="table-responsive" th:unless="${#lists.isEmpty(avaliacoes)}">
+                        <div class="table-responsive" th:unless="${#lists.isEmpty(listaAvaliacaoFisica)}">
                             <table class="table table-sm align-middle">
                                 <thead>
                                     <tr>
@@ -111,19 +110,41 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="av : ${avaliacoes}">
+                                    <tr th:each="av : ${listaAvaliacaoFisica}">
                                         <td th:text="${av.professor.nome}">Lorem Ipsum</td>
                                         <td th:text="${#numbers.formatDecimal(av.peso, 1, 'NONE', 2, 'COMMA')}">70,80</td>
                                         <td th:text="${#numbers.formatDecimal(av.percentualGordura, 1, 'NONE', 2, 'COMMA')}">15,20</td>
                                         <td th:text="${#numbers.formatDecimal(av.altura, 1, 'NONE', 2, 'COMMA')}">1,72</td>
                                     </tr>
-                                </tbody>
-                            </table>
+								</tbody>
+							</table>
                         </div>
-
-                       
+						<a th:href="@{/avaliacao-fisica/cadastrar/{id}(id=${aluno.id})}" class="btn btn-primary bg-primary-pf w-100" sec:authorize="hasAnyRole('PROFESSOR')">Cadastrar Avaliação</a>
                     </div>
                 </div>
+
+				<div class="card shadow-sm mt-4" th:unless="${aluno.id == null OR edit}" sec:authorize="hasAnyRole('ADMIN','PROFESSOR', 'ATENDENTE')">
+				    <div class="card-header bg-primary-pf text-white">
+				        <h5 class="mb-0">Plano</h5>
+				    </div>
+				    <div class="card-body">
+
+				        <p class="text-muted" th:if="${#lists.isEmpty(listaPlano)}">Nenhum plano cadastrado para este aluno.</p>
+
+				        <div class="table-responsive" th:unless="${#lists.isEmpty(listaPlano)}">
+				            <table class="table table-sm align-middle">
+				                <tbody>
+				                    <tr th:each="p : ${listaPlano}">
+				                        <td th:text="${p.dataInicio}">Lorem Ipsum</td>
+				                        <td th:text="${p.modalidade}">Lorem Ipsum</td>
+				                    </tr>
+								</tbody>
+							</table>
+				        </div>
+						<a th:href="@{/plano/cadastrar/{id}(id=${aluno.id})}" class="btn btn-primary bg-primary-pf w-100" sec:authorize="hasAnyRole('ATENDENTE','ADMIN')">Incluir Plano</a>
+				    </div>
+				</div>
+				
             </div>
         </div>
     </main>

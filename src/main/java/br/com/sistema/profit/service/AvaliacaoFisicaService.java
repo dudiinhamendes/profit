@@ -2,13 +2,11 @@ package br.com.sistema.profit.service;
 
 import java.util.List;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import br.com.sistema.profit.model.Aluno;
 import br.com.sistema.profit.model.AvaliacaoFisica;
 import br.com.sistema.profit.repository.AvaliacaoFisicaRepository;
-import br.com.sistema.profit.repository.ProfessorRepository;
-import br.com.sistema.profit.security.AcessoUsuario;
 import br.com.sistema.profit.security.NaoEncontradoException;
 
 @Service
@@ -32,6 +30,10 @@ public class AvaliacaoFisicaService {
 	public AvaliacaoFisica buscarPorId(Long id) throws NaoEncontradoException {
 		return avaliacaoFisicaRepository.findById(id)
 				.orElseThrow(() -> new NaoEncontradoException("Avaliação Física não encontrado: " + id));
+	}
+
+	public List<AvaliacaoFisica> buscarPorAluno(Aluno aluno) {
+		return avaliacaoFisicaRepository.findAllByAluno(aluno);
 	}
 	
 	public void deletar(Long id) {
