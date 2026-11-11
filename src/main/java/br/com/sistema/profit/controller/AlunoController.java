@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.sistema.profit.model.Aluno;
 import br.com.sistema.profit.security.NaoEncontradoException;
 import br.com.sistema.profit.service.AlunoService;
+import br.com.sistema.profit.service.AvaliacaoFisicaService;
 import br.com.sistema.profit.service.PlanoService;
 
 @Controller
@@ -21,9 +22,15 @@ public class AlunoController implements CrudController<Aluno> {
 
 	AlunoService alunoService;
 	PlanoService planoService;
+	AvaliacaoFisicaService avaliacaoFisicaService;
 
-	public AlunoController(AlunoService alunoService) {
+	
+
+	public AlunoController(AlunoService alunoService, PlanoService planoService,
+			AvaliacaoFisicaService avaliacaoFisicaService) {
 		this.alunoService = alunoService;
+		this.planoService = planoService;
+		this.avaliacaoFisicaService = avaliacaoFisicaService;
 	}
 
 	@Override
@@ -42,6 +49,8 @@ public class AlunoController implements CrudController<Aluno> {
 			Aluno aluno = alunoService.buscarPorId(id);
 			model.addAttribute("edit", false);
 			model.addAttribute("aluno", aluno);
+			model.addAttribute("listaAvaliacaoFisica", avaliacaoFisicaService.buscarPorAluno(aluno));
+			model.addAttribute("listaPlano", planoService.buscarPorAluno(aluno));
 			return "aluno/form";
 		} catch(NaoEncontradoException  _) {
 			return "redirect:/aluno/listar?msg=e-notFound";

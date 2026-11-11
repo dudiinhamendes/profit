@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.sistema.profit.model.Aluno;
 import br.com.sistema.profit.model.Plano;
 import br.com.sistema.profit.repository.PlanoRepository;
 import br.com.sistema.profit.security.FoiEncontradoException;
@@ -29,6 +30,10 @@ public class PlanoService {
 	public Plano buscarPorId(Long id) throws NaoEncontradoException {
 		return planoRepository.findById(id)
 				.orElseThrow(() -> new NaoEncontradoException("Plano não encontrado: " + id));
+	}
+	
+	public List<Plano> buscarPorAluno(Aluno aluno) {
+		return planoRepository.findAllByAlunos(aluno);
 	}
 	
 	public void deletar(Long id) {
