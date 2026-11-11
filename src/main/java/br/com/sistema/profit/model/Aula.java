@@ -1,6 +1,7 @@
 package br.com.sistema.profit.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +30,13 @@ public class Aula {
 	private String nome;
 	 
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) // permite usar <input type="datetime-local">
-	private LocalDateTime horario;
+	private LocalDateTime horario; 
+	
+	public String getHorarioFormatado() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		return horario.format(formatter);
+	}
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "professor_id", nullable = false)
