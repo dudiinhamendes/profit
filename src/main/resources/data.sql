@@ -21,7 +21,17 @@ values (7, '598.038.673-99', '2026-06-07'),
 
 insert into avaliacao_fisica (aluno_id, professor_id, peso, percentual_gordura, altura)
 values (4, 7, '70.80', '15.20', '1.72'),
-(6, 7, '65.60', '17.25', '1.66'),
-(5, 9, '62.10', '12.60', '1.60');
+(5, 9, '62.10', '12.60', '1.60'),
+(5, 9, '67.09', '15.60', '1.60'),
+(6, 8, '65.60', '17.25', '1.66'),
+(6, 9, '64.33', '16.60', '1.66');
 
-insert into plano(id, nome, preco, modalidade ,data_inicio)values(1,'hoje', '29.99', 'Anual','2026-06-07');
+insert into plano(id, nome, preco, modalidade ,data_inicio)
+values(1,'Pobrium Iron', '29.99', 'Anual','2026-06-07'),
+(2,'Premium Gold Rooster', '639.99', 'Anual','2026-06-07');
+
+insert into plano_aluno(plano_id, aluno_id)
+values(1, 4),
+(2, 4),
+(1, 5),
+(2, 6);

@@ -91,7 +91,7 @@
                     </div>
                 </div>
 
-                <div class="card shadow-sm mt-4" th:unless="${aluno.id == null OR edit}" sec:authorize="hasAnyRole('ADMIN','PROFESSOR', 'ATENDENTE')">
+                <div class="card shadow-sm mt-4" th:unless="${aluno.id == null OR edit}">
                     <div class="card-header bg-primary-pf text-white">
                         <h5 class="mb-0">Avaliação Física</h5>
                     </div>
@@ -123,7 +123,7 @@
                     </div>
                 </div>
 
-				<div class="card shadow-sm mt-4" th:unless="${aluno.id == null OR edit}" sec:authorize="hasAnyRole('ADMIN','PROFESSOR', 'ATENDENTE')">
+				<div class="card shadow-sm mt-4" th:unless="${aluno.id == null OR edit}">
 				    <div class="card-header bg-primary-pf text-white">
 				        <h5 class="mb-0">Plano</h5>
 				    </div>
@@ -135,6 +135,7 @@
 				            <table class="table table-sm align-middle">
 				                <tbody>
 				                    <tr th:each="p : ${listaPlano}">
+										<td th:text="${p.nome}">Lorem Ipsum</td>
 				                        <td th:text="${p.dataInicio}">Lorem Ipsum</td>
 				                        <td th:text="${p.modalidade}">Lorem Ipsum</td>
 				                    </tr>
