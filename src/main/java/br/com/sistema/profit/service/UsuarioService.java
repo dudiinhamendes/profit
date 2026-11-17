@@ -57,7 +57,9 @@ public class UsuarioService implements UserDetailsService {
 				usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 			}
 		}
-
+		
+		usuario.setSenha(usuario.getSenha().toLowerCase());
+		
 		return usuarioRepository.save(usuario).getId();
 	}
 	 

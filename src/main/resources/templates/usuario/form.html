@@ -27,7 +27,9 @@
                             </div>
 								<div class="mb-3">
 								    <label for="phone" class="form-label">Telefone</label>
-								    <input type="text" class="form-control" id="phone" placeholder="Digite telefone" required th:field="*{telefone}">
+								    <input type="tel" class="form-control" id="phone" maxlength="15" minlength="8" 
+									pattern="^\(\d{2}\)\s(9\d{4}|\d{4})-\d{4}$" 
+									placeholder="Digite telefone" required th:field="*{telefone}" title="Digite um telefone válido. Ex: (51) 9xxxx-xxxx">
 								</div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
