@@ -18,6 +18,7 @@ import br.com.sistema.profit.service.ProfessorService;
 
 @Controller
 @RequestMapping("/professor")
+@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 public class ProfessorController implements CrudController<Professor> {
 	
 	ProfessorService professorService;
@@ -25,10 +26,9 @@ public class ProfessorController implements CrudController<Professor> {
 	public ProfessorController(ProfessorService professorService) {
 		this.professorService = professorService;
 	}
-
+	
 	@Override
 	@GetMapping("/cadastrar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String cadastrar(Model model) {
 		 model.addAttribute("professor",new Professor());
 		 return "professor/form";
@@ -36,7 +36,6 @@ public class ProfessorController implements CrudController<Professor> {
 
 	@Override
 	@GetMapping("/visualizar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String visualizar(@RequestParam Long id, Model model) {
 		try {
 			Professor professor = professorService.buscarPorId(id);
@@ -50,7 +49,6 @@ public class ProfessorController implements CrudController<Professor> {
 
 	@Override
 	@GetMapping("/editar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String editar(Long id, Model model) {
 		try {
 			Professor professor = professorService.buscarPorId(id);
@@ -65,7 +63,6 @@ public class ProfessorController implements CrudController<Professor> {
 
 	@Override
 	@GetMapping("/listar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String listar(@RequestParam Optional<String> msg, Model model) {
 		msg.ifPresent(m -> adicionaMensagem(model, m));
 		List<Professor>listaProfessor=professorService.listar();
@@ -75,7 +72,6 @@ public class ProfessorController implements CrudController<Professor> {
 
 	@Override
 	@PostMapping("/salvar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
 	public String salvar(@ModelAttribute Professor professor) {
 		try {
 			professorService.salvar(professor);
