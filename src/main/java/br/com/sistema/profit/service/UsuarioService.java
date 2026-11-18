@@ -68,7 +68,8 @@ public class UsuarioService implements UserDetailsService {
 				throw new PreenchimentoInvalidoException("CADE A SENHA MANO");
 			}
 		}
-		
+
+		usuario.setSenha(usuario.getSenha().toLowerCase());
 		return usuarioRepository.save(usuario).getId();
 	}
 	 
