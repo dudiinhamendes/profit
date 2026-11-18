@@ -2,6 +2,9 @@ package br.com.sistema.profit.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -54,6 +57,16 @@ public class PlanoService {
 		}
 		 
 		return planoRepository.save(plano).getId();	 
+	}
+
+
+	public void removerAluno(Long idPlano, Long idAluno) {
+		Optional<Plano> plano = planoRepository.findById(idPlano);
+		plano.ifPresent(p -> {
+			Set<Aluno> listaAlunos = p.getAlunos().stream().filter(a -> !idAluno.equals(a.getId())).collect(Collectors.toSet());
+			p.setAlunos(listaAlunos);
+			planoRepository.save(p);
+		});
 	}
 	
 }
