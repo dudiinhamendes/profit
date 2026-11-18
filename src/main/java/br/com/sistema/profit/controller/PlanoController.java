@@ -91,6 +91,14 @@ public class PlanoController implements CrudController<Plano> {
 		return "redirect:/plano/listar?msg=s-deleted";
 		
 	}
+
+	@GetMapping("/remover")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	public String deletar(@RequestParam("id_plano") Long idPlano, @RequestParam("id_aluno") Long idAluno) {
+		planoService.removerAluno(idPlano, idAluno);
+		return "redirect:/aluno/visualizar?id=" + idAluno;
+		
+	}
 	
 	
 }
