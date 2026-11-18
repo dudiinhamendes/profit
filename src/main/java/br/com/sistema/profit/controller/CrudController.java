@@ -37,6 +37,9 @@ public interface CrudController<T> {
 			case "sameName":
 				model.addAttribute(ELEMENTO_INTERFACE, NOME_OBJETO + " com este nome já existe.");
 				break;
+			case "invalidData":
+				model.addAttribute(ELEMENTO_INTERFACE, NOME_OBJETO + " não salvo. Dados inválidos");
+				break;
 			default:
 				model.addAttribute(ELEMENTO_INTERFACE, NOME_OBJETO + ": " + message);
 				break;
