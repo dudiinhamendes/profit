@@ -38,7 +38,7 @@ public class AvaliacaoFisicaController {
 	}
 
 	@GetMapping("/visualizar")
-	@PreAuthorize("hasAnyRole('PROFESSOR')")
+	@PreAuthorize("hasAnyRole('PROFESSOR', 'ALUNO')")
 	public String visualizar(Long id, Model model) {
 		try {
 			AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
