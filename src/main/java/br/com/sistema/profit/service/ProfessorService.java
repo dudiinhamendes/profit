@@ -16,8 +16,9 @@ public class ProfessorService {
 	private ProfessorRepository professorRepository;
     private PasswordEncoder passwordEncoder;
 	
-	public ProfessorService(ProfessorRepository professorRepository) {
+	public ProfessorService(ProfessorRepository professorRepository, PasswordEncoder passwordEncoder) {
 		this.professorRepository = professorRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	public List<Professor>listar(){
@@ -42,9 +43,12 @@ public class ProfessorService {
 			}
 		} else {
 			if (professor.getSenha() != null && !professor.getSenha().trim().isEmpty()) {
+				// this.passwordEncoder is null
 				professor.setSenha(passwordEncoder.encode(professor.getSenha()));
 			}
 		}
+		
+		professor.setUsername(professor.getUsername().toLowerCase());
 	 
 			return professorRepository.save(professor).getId();
 		}

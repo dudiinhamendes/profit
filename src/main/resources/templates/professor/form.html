@@ -24,7 +24,8 @@
 						
 						<form th:action="@{/professor/salvar}" th:object="${professor}" method="POST" th:if="${professor.id == null OR edit}">
 							<input type="hidden" th:field="*{id}">
-
+							<input type="hidden" th:field="*{dataDemissao}">
+							
 							<div class="mb-3">
 								<label for="fullName" class="form-label">Nome</label>
 								<input type="text" class="form-control" id="fullName" placeholder="Digite nome" required th:field="*{nome}">
@@ -32,7 +33,7 @@
 			
 							<div class="mb-3">
 								<label for="username" class="form-label">Username</label>
-							    <input type="text" class="form-control" id="username" placeholder="Digite nome para login" required th:field="*{username}">
+							    <input type="text" class="form-control" id="username" placeholder="Digite nome para login" required th:field="*{username}" pattern="[a-z0-9]+" title="Use apenas letras minúsculas, sem acento e espaços.">
 							</div>
 							
 							<div class="mb-3">
