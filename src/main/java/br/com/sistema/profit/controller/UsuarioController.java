@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Usuario;
 import br.com.sistema.profit.security.NaoEncontradoException;
+import br.com.sistema.profit.security.PreenchimentoInvalidoException;
 import br.com.sistema.profit.service.UsuarioService;
 
 @Controller
@@ -52,6 +53,9 @@ public class UsuarioController implements CrudController<Usuario> {
 	public String editar(@RequestParam Long id, Model model) {
 		try {
 			Usuario usuario = usuarioService.buscarPorId(id);
+			if(usuario.getRole().equals("ROLE_ALUNO") || usuario.getRole().equals("ROLE_PROFESSOR")) {
+				return "redirect:/usuario/listar?msg=e-notFound";
+			}
 			model.addAttribute("edit", true);
 			model.addAttribute("usuario", usuario);
 			return "usuario/form";
@@ -77,6 +81,9 @@ public class UsuarioController implements CrudController<Usuario> {
 			return "redirect:/usuario/listar?msg=s-saved";
 		} catch(NaoEncontradoException _) {
 			return "redirect:/usuario/listar?msg=e-notFound";
+		} catch(PreenchimentoInvalidoException _) {
+			return "redirect:/usuario/listar?msg=e-invalidData";
 		}
+		
 	}
 }
