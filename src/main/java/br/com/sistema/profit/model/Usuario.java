@@ -21,8 +21,6 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
 	
-	private static final DateTimeFormatter dataPadrao = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -46,6 +44,7 @@ public class Usuario {
 	private boolean ativo = true;
 	
 	public String getDataCriacaoFormatada(){
+		DateTimeFormatter dataPadrao = DateTimeFormatter.ofPattern("HH:mm 'de' dd/MM/yyyy");
 		return this.dataCriacao.format(dataPadrao);
 	}
 }
