@@ -1,6 +1,7 @@
 package br.com.sistema.profit.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -19,6 +20,8 @@ import lombok.Setter;
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
+	
+	private static final DateTimeFormatter dataPadrao = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,4 +44,8 @@ public class Usuario {
 	
 	@Column (nullable = false) 
 	private boolean ativo = true;
+	
+	public String getDataCriacaoFormatada(){
+		return this.dataCriacao.format(dataPadrao);
+	}
 }
