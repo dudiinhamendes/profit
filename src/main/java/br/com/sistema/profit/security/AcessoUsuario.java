@@ -60,4 +60,14 @@ public class AcessoUsuario implements UserDetails {
 		return this.getAuthorities().stream()
 				.anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
 	}
+
+	public boolean isAluno() {
+		return this.getAuthorities().stream()
+				.anyMatch(a -> a.getAuthority().equals("ROLE_ALUNO"));
+	}
+
+	public boolean isProfessor() {
+		return this.getAuthorities().stream()
+				.anyMatch(a -> a.getAuthority().equals("ROLE_PROFESSOR"));
+	}
 }

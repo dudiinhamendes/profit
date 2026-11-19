@@ -3,6 +3,8 @@ package br.com.sistema.profit.controller;
 import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Usuario;
+import br.com.sistema.profit.security.AcessoUsuario;
 import br.com.sistema.profit.security.NaoEncontradoException;
 import br.com.sistema.profit.security.PreenchimentoInvalidoException;
 import br.com.sistema.profit.service.UsuarioService;
@@ -31,13 +34,22 @@ public class UsuarioController implements CrudController<Usuario> {
 	@GetMapping("/cadastrar")
 	public String cadastrar(Model model) {
 		model.addAttribute("usuario", new Usuario());
-	    return "usuario/form";
+		return "usuario/form";
 	}
 
 	@Override
 	@GetMapping("/visualizar")
+	@PreAuthorize("hasAnyRole('ADMIN', 'ATENDENTE')")
 	public String visualizar(@RequestParam Long id, Model model) {
+	/*AcessoUsuario logado = (AcessoUsuario) SecurityContextHolder
+			.getContext()
+			.getAuthentication()
+			.getPrincipal();
+		if(logado.isAdmin() && logado.getId().equals(id)) {
+			return "redirect:/usuario/visualizar?id=";
+		}*/
 		try {
+			
 			Usuario usuario = usuarioService.buscarPorId(id);
 			model.addAttribute("edit", false);
 			model.addAttribute("usuario", usuario);
@@ -84,6 +96,23 @@ public class UsuarioController implements CrudController<Usuario> {
 		} catch(PreenchimentoInvalidoException _) {
 			return "redirect:/usuario/listar?msg=e-invalidData";
 		}
-		
+
 	}
+
+	@PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR', 'ATENDENTE', 'ALUNO')")
+	@GetMapping("/profile")
+	public String profile(Model model, @AuthenticationPrincipal AcessoUsuario usuarioAtual) {
+
+		String urlDestino = "redirect:/";
+		if (usuarioAtual.isAluno()) {
+			urlDestino += "aluno";
+		} else if (usuarioAtual.isProfessor()) {
+			urlDestino += "professor";
+		} else {
+			urlDestino += "usuario";
+		}
+		return urlDestino + "/visualizar?id=" + usuarioAtual.getId();
+
+	}
+
 }
