@@ -80,6 +80,8 @@ public class PlanoController implements CrudController<Plano> {
 			return "redirect:/plano/listar?msg=s-saved";
 		} catch(FoiEncontradoException _) {
 			return "redirect=/plano/listar?msg=e-sameName";
+		} catch (NaoEncontradoException e) {
+			return "redirect=/plano/listar?msg=e-notFound";
 		}
 	}
 	
