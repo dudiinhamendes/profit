@@ -1,6 +1,7 @@
 package br.com.sistema.profit.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -41,4 +42,9 @@ public class Usuario {
 	
 	@Column (nullable = false) 
 	private boolean ativo = true;
+	
+	public String getDataCriacaoFormatada(){
+		DateTimeFormatter dataPadrao = DateTimeFormatter.ofPattern("HH:mm 'de' dd/MM/yyyy");
+		return this.dataCriacao.format(dataPadrao);
+	}
 }
