@@ -41,13 +41,13 @@ public class UsuarioController implements CrudController<Usuario> {
 	@GetMapping("/visualizar")
 	@PreAuthorize("hasAnyRole('ADMIN', 'ATENDENTE')")
 	public String visualizar(@RequestParam Long id, Model model) {
-	/*AcessoUsuario logado = (AcessoUsuario) SecurityContextHolder
+	AcessoUsuario logado = (AcessoUsuario) SecurityContextHolder
 			.getContext()
 			.getAuthentication()
 			.getPrincipal();
-		if(logado.isAdmin() && logado.getId().equals(id)) {
-			return "redirect:/usuario/visualizar?id=";
-		}*/
+		if(!logado.isAdmin() && logado.getId().equals(id)) {
+			return "redirect:/usuario/listar?msg=e-notFound";
+		}
 		try {
 			
 			Usuario usuario = usuarioService.buscarPorId(id);
