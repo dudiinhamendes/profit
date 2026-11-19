@@ -31,7 +31,13 @@
 
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Digite nome para login" required th:field="*{username}">
+                                <input type="text" 
+								oninput="this.value = this.value.toLowerCase()" 
+								class="form-control" 
+								id="username" 
+								placeholder="Digite nome para login" 
+								required th:field="*{username}"
+								pattern="[a-z0-9]+">
                             </div>
 							
 							<div class="mb-3">
@@ -60,12 +66,15 @@
                                 </select>
                             </div>
 
+							<div class="mb-3 form-check"  th:if="${edit}">
+							   <input type="checkbox" class="form-check-input" id="esta-ativo"  th:field="*{ativo}">
+							   <label class="form-check-label" for="esta-ativo">Ativo</label>
+							</div>
 
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="esta-ativo" th:field="*{ativo}">
-                                <label class="form-check-label" for="esta-ativo">Ativo</label>
-                            </div>
-
+							<div class="mb-3 form-check" th:unless="${edit}">
+								<input type="checkbox" class="form-check-input" id="esta-ativo"  required th:field="*{ativo}">
+								<label class="form-check-label" for="esta-ativo">Ativo</label>
+							</div>
                             <div class="d-flex gap-3">
                                 <a th:href="@{/}" class="btn btn-secondary w-100">Cancelar</a>
                                 <button type="submit" class="btn btn-primary bg-primary-pf w-100">Salvar</button>
