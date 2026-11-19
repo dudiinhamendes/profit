@@ -27,7 +27,7 @@ public class PlanoController implements CrudController<Plano> {
 
 	@Override
 	@GetMapping("/cadastrar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public String cadastrar(Model model) {
 		model.addAttribute("plano",new Plano());
 		return "plano/form";
@@ -49,7 +49,7 @@ public class PlanoController implements CrudController<Plano> {
 
 	@Override
 	@GetMapping("/editar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public String editar(Long id, Model model) {
 		try {
 			Plano plano = planoService.buscarPorId(id);
@@ -73,7 +73,7 @@ public class PlanoController implements CrudController<Plano> {
 
 	@Override
 	@PostMapping("/salvar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public String salvar(Plano plano) {
 		try {
 			planoService.salvar(plano);
