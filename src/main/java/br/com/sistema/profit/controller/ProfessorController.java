@@ -36,6 +36,7 @@ public class ProfessorController implements CrudController<Professor> {
 
 	@Override
 	@GetMapping("/visualizar")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN', 'PROFESSOR')")
 	public String visualizar(@RequestParam Long id, Model model) {
 		try {
 			Professor professor = professorService.buscarPorId(id);
