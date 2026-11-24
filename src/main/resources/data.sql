@@ -26,9 +26,9 @@ values (4, 7, '70.80', '15.20', '1.72'),
 (6, 8, '65.60', '17.25', '1.66'),
 (6, 9, '64.33', '16.60', '1.66');
 
-insert into plano(id, nome, preco, modalidade ,data_inicio)
-values(1,'Pobrium Iron', '29.99', 'Anual','2026-06-07'),
-(2,'Premium Gold Rooster', '639.99', 'Anual','2026-06-07');
+insert into plano(nome, preco, modalidade ,data_inicio)
+values('Pobrium Iron', '29.99', 'Anual','2026-06-07'),
+('Premium Gold Rooster', '639.99', 'Anual','2026-06-07');
 
 insert into plano_aluno(plano_id, aluno_id)
 values(1, 4),
