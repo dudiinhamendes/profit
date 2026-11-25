@@ -23,7 +23,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="p : ${listaPlano}">
+					<tr th:each="p : ${listaPlano}" th:onclick="|window.location.href='@{/plano/visualizar?id={id}(id=${p.id})}'|" style="cursor: pointer;">
 						<td th:text="${p.nome}"></td>
 						<td th:text="${p.preco}"></td>
 						<td th:text="${p.modalidade}"></td>

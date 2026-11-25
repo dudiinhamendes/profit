@@ -26,7 +26,7 @@
 					<tr th:each="u : ${listaUsuario}" th:onclick="|window.location.href='@{/usuario/visualizar?id={id}(id=${u.id})}'|" style="cursor: pointer;">
 						<td th:text="${u.nome}"></td>
 						<td th:text="${u.role}"></td>
-						<td th:text="${u.dataCriacao}"></td>
+						<td th:text="${u.dataCriacaoFormatada}"></td>
 						<td>
 							<span th:if="${u.ativo}" class="badge bg-primary">Ativo</span>
 							<span th:unless="${u.ativo}" class="badge bg-warning">Inativo</span>

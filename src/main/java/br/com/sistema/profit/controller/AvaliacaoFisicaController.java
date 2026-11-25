@@ -38,6 +38,7 @@ public class AvaliacaoFisicaController {
 	}
 
 	@GetMapping("/visualizar")
+	@PreAuthorize("hasAnyRole('PROFESSOR', 'ALUNO')")
 	public String visualizar(Long id, Model model) {
 		try {
 			AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaService.buscarPorId(id);
@@ -74,6 +75,7 @@ public class AvaliacaoFisicaController {
 	}
 	
 	@GetMapping("/deletar")
+	@PreAuthorize("hasAnyRole('PROFESSOR')")
 	public String deletar(@RequestParam Long id) {
 		avaliacaoFisicaService.deletar(id);
 		return "redirect:/avaliacao-fisica/listar?msg=s-deleted";

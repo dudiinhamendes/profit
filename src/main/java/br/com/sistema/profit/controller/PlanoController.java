@@ -27,7 +27,7 @@ public class PlanoController implements CrudController<Plano> {
 
 	@Override
 	@GetMapping("/cadastrar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public String cadastrar(Model model) {
 		model.addAttribute("plano",new Plano());
 		return "plano/form";
@@ -49,7 +49,7 @@ public class PlanoController implements CrudController<Plano> {
 
 	@Override
 	@GetMapping("/editar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public String editar(Long id, Model model) {
 		try {
 			Plano plano = planoService.buscarPorId(id);
@@ -72,13 +72,15 @@ public class PlanoController implements CrudController<Plano> {
 
 	@Override
 	@PostMapping("/salvar")
-	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public String salvar(Plano plano) {
 		try {
 			planoService.salvar(plano);
 			return "redirect:/plano/listar?msg=s-saved";
 		} catch(FoiEncontradoException _) {
 			return "redirect=/plano/listar?msg=e-sameName";
+		} catch (NaoEncontradoException e) {
+			return "redirect=/plano/listar?msg=e-notFound";
 		}
 	}
 	
@@ -88,6 +90,14 @@ public class PlanoController implements CrudController<Plano> {
 	public String deletar(@RequestParam Long id) {
 		planoService.deletar(id);
 		return "redirect:/plano/listar?msg=s-deleted";
+		
+	}
+
+	@GetMapping("/remover")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	public String deletar(@RequestParam("id_plano") Long idPlano, @RequestParam("id_aluno") Long idAluno) {
+		planoService.removerAluno(idPlano, idAluno);
+		return "redirect:/aluno/visualizar?id=" + idAluno;
 		
 	}
 	

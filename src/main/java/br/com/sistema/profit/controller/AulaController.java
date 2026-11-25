@@ -3,6 +3,7 @@ package br.com.sistema.profit.controller;
 import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistema.profit.model.Aula;
+import br.com.sistema.profit.security.AcessoUsuario;
 import br.com.sistema.profit.security.NaoEncontradoException;
 import br.com.sistema.profit.service.AlunoService;
 import br.com.sistema.profit.service.AulaService;
@@ -83,6 +85,13 @@ public class AulaController implements CrudController<Aula> {
 	@PostMapping("/salvar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN', 'PROFESSOR')")
 	public String salvar(@ModelAttribute Aula aula) {
+		AcessoUsuario logado = (AcessoUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(logado.isProfessor() && !logado.getId().equals(aula.getProfessor().getId())) {
+			return "redirect:/aula/listar?msg=e-unauthorized";
+		}
+		if(!aula.getProfessor().isAtivo()) {
+			return "redirect:/aula/listar?msg=e-unauthorized";
+		}
 		aulaService.salvar(aula);
 		return "redirect:/aula/listar?msg=s-saved";
 	}
