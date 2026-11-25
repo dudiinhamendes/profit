@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.sistema.profit.model.Plano;
 import br.com.sistema.profit.model.Aluno;
 import br.com.sistema.profit.security.NaoEncontradoException;
+import br.com.sistema.profit.security.FoiEncontradoException;
 import br.com.sistema.profit.service.AlunoService;
 import br.com.sistema.profit.service.AvaliacaoFisicaService;
 import br.com.sistema.profit.service.PlanoService;
@@ -51,12 +53,32 @@ public class AlunoController implements CrudController<Aluno> {
 			model.addAttribute("aluno", aluno);
 			model.addAttribute("listaAvaliacaoFisica", avaliacaoFisicaService.buscarPorAluno(aluno));
 			model.addAttribute("listaPlano", planoService.buscarPorAluno(aluno));
+			model.addAttribute("todosPlanos", planoService.listar());
+			
 			return "aluno/form";
 		} catch(NaoEncontradoException  _) {
 			return "redirect:/aluno/listar?msg=e-notFound";
 		}
 	}
 
+	@PostMapping("/incluir-plano")
+	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
+	public String incluirPlano(@RequestParam Long alunoId, @RequestParam Long planoId) {
+		try {
+			Aluno aluno = alunoService.buscarPorId(alunoId);
+			Plano plano = planoService.buscarPorId(planoId);
+			
+			plano.getAlunos().add(aluno);
+			planoService.salvar(plano);
+			
+			return "redirect:/aluno/visualizar?id=" + alunoId + "&msg=s-saved";
+		} catch (NaoEncontradoException _) {
+			return "redirect:/aluno/listar?msg=e-notFound";
+		} catch (FoiEncontradoException _) {
+			return "redirect:/aluno/visualizar?id=" + alunoId + "&msg=e-sameName";
+		}
+	}
+	
 	@Override
 	@GetMapping("/editar")
 	@PreAuthorize("hasAnyRole('ATENDENTE', 'ADMIN')")
