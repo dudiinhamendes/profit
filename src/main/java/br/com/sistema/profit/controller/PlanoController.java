@@ -57,7 +57,6 @@ public class PlanoController implements CrudController<Plano> {
 			model.addAttribute("plano", plano);
 			return "plano/form";
 		} catch(NaoEncontradoException _) {
-			// adicionar erro ao log de plano não encontrado
 			return "redirect:/plano/listar?msg=e-notFound";
 		}
 	}
